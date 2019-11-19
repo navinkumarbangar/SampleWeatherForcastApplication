@@ -21,5 +21,5 @@ internal abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(WeatherViewModel::class)
-    protected abstract fun weatherViewModel(moviesListViewModel: WeatherViewModel): ViewModel
+    protected abstract fun weatherViewModel(weatherViewModel: WeatherViewModel): ViewModel
 }

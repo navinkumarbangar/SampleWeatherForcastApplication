@@ -4,15 +4,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".view.WeatherActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/clShowWeatherForeCastDetails"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_margin="@dimen/padding_margin_8"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChartSixteenDaysForecast"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/forecastChart_height_180"
+            android:layout_marginBottom="@dimen/padding_margin_16"
+            android:layout_marginEnd="@dimen/padding_margin_8"
+            android:layout_marginStart="@dimen/padding_margin_8"
+            android:layout_marginTop="@dimen/padding_margin_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvHourlyForecast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_margin_16"
+            android:layout_marginEnd="@dimen/padding_margin_8"
+            android:layout_marginStart="@dimen/padding_margin_8"
+            android:layout_marginTop="@dimen/padding_margin_16"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_16"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/clShowWeatherButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_margin_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clShowWeatherForeCastDetails">
+
+        <Button
+            android:id="@+id/btnShowHourlyForcast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_margin_8"
+            android:text="@string/hourly_forcast"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnShowSixteenDaysForcast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_margin_8"
+            android:text="@string/sixteen_day_forcast"
+            app:layout_constraintTop_toBottomOf="@+id/btnShowHourlyForcast" />
+    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

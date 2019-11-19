@@ -6,6 +6,8 @@ package com.example.navinbangar.sampleweatherapplication.helper
 
 class Helper {
     companion object {
-        var weatherUrl = "http://api.openweathermap.org/"
+        var weatherUrl = "https://samples.openweathermap.org/"
+        @JvmStatic
+        var ForecastAppId = "035e3db0d584e4a925ca705e6ec9677e"
     }
 }
