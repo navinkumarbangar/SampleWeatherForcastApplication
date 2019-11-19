@@ -1,7 +1,8 @@
-package com.example.navinbangar.sampleweatherapplication
+package com.example.navinbangar.sampleweatherapplication.view
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.example.navinbangar.sampleweatherapplication.R
 
 class WeatherActivity : AppCompatActivity() {
 
