@@ -27,7 +27,14 @@ class WeatherActivity : AppCompatActivity() {
         setUpSixteenDaysForecastBtnListener()
     }
 
+    private fun setUpCloseBtnClickListener() {
+        btnCloseApp.setOnClickListener {
+            finishAffinity()
+        }
+    }
+
     private fun subscribeHourlyForeCastLiveData() {
+        weatherViewModel.getHourlyWeatherForeCast(retrofit).removeObservers(this)
         weatherViewModel.getHourlyWeatherForeCast(retrofit).observe(this, Observer { weatherDetailHourlyObj ->
             val weatherHoursList = weatherViewModel.getHourlyForeCastHours(weatherDetailHourlyObj?.list)
             val tempratureList = weatherViewModel.getHourlyForeCastTemprature(weatherDetailHourlyObj?.list)
@@ -43,11 +50,6 @@ class WeatherActivity : AppCompatActivity() {
         weatherViewModel = ViewModelProviders.of(this).get(WeatherViewModel::class.java)
     }
 
-    private fun setUpCloseBtnClickListener() {
-        btnCloseApp.setOnClickListener {
-            finishAffinity()
-        }
-    }
     override fun onStop() {
         super.onStop()
         weatherViewModel.getHourlyWeatherForeCast(retrofit).removeObservers(this)
@@ -65,8 +67,8 @@ class WeatherActivity : AppCompatActivity() {
     private fun updateHourlyForeCast(weatherHoursList: List<String>, tempratureList: List<String>) {
         val barData = weatherViewModel.getBarGraphData(weatherHoursList, tempratureList)
         barChartForecast.data = barData
-        barChartForecast.setDescription("Forecast Data")
-        barChartForecast.animateY(500)
+        barChartForecast.setDescription("Hourly Weather Forecast")
+        barChartForecast.animateY(1000)
     }
 
     private fun setUpSixteenDaysForecastBtnListener() {

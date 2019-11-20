@@ -75,7 +75,7 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
         tempratureList.forEachIndexed { index, values ->
             entries.add(BarEntry(values.toFloat(), index))
         }
-        val barDataSet = BarDataSet(entries, "Cells")
+        val barDataSet = BarDataSet(entries, "Hourly Weather Forecast")
         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
         val data = BarData(weatherHoursList, barDataSet)
         return data
