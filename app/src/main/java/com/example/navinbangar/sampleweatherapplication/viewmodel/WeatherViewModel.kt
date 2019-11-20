@@ -1,8 +1,7 @@
 package com.example.navinbangar.sampleweatherapplication.viewmodel
 
-import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.ViewModel
 import com.example.navinbangar.sampleweatherapplication.api.Repository
 import com.example.navinbangar.sampleweatherapplication.model.ListItem
 import com.example.navinbangar.sampleweatherapplication.model.WeatherDetailHourly
@@ -11,26 +10,24 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.utils.ColorTemplate
-import retrofit2.Retrofit
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
+
 
 /**
  * Created by Navin Bangar on 11/19/2019.
  */
 
-class WeatherViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val mRepository: Repository = Repository()
-
-    fun getHourlyWeatherForeCast(retrofit: Retrofit): MutableLiveData<WeatherDetailHourly?> {
-        return mRepository.getHourlyForecastData(retrofit)
+class WeatherViewModel @Inject constructor(val weatherRepo: Repository) : ViewModel() {
+    fun getHourlyWeatherForeCast(): MutableLiveData<WeatherDetailHourly?> {
+        return weatherRepo.getHourlyForecastData()
     }
 
-    fun getSixteenDaysWeatherForeCast(retrofit: Retrofit): MutableLiveData<List<WeatherDetailsObj>> {
-        return mRepository.getSixteenDaysForecastData(retrofit)
+    fun getSixteenDaysWeatherForeCast(): MutableLiveData<List<WeatherDetailsObj>> {
+        return weatherRepo.getSixteenDaysForecastData()
     }
 
     fun getHourlyForeCastHours(weatherDetailList: List<ListItem>?): List<String> {

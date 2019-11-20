@@ -7,21 +7,18 @@ import com.example.navinbangar.sampleweatherapplication.model.WeatherForeCast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
 
 /**
  * Created by Navin Bangar on 11/19/2019.
  */
 
-class Repository {
-
+class Repository(val webservice: WeatherServiceApiInterface) {
     private var hourlyrForeCastLiveData: MutableLiveData<WeatherDetailHourly?> = MutableLiveData()
     private var sixteenDaysForeCastLiveData: MutableLiveData<List<WeatherDetailsObj>> = MutableLiveData()
 
     ///Get weather forecast hourly
-    fun getHourlyForecastData(retrofit: Retrofit): MutableLiveData<WeatherDetailHourly?> {
-        val service = retrofit.create(WeatherServiceApiInterface::class.java)
-        val call = service.getHourlyWeatherData(lat, lon, com.example.navinbangar.sampleweatherapplication.helper.Helper.ForecastAppId)
+    fun getHourlyForecastData(): MutableLiveData<WeatherDetailHourly?> {
+        val call = webservice.getHourlyWeatherData(lat, lon, com.example.navinbangar.sampleweatherapplication.helper.Helper.ForecastAppId)
         call.enqueue(object : Callback<WeatherDetailHourly> {
             override fun onResponse(call: Call<WeatherDetailHourly>, response: Response<WeatherDetailHourly>) {
                 if (response.code() == success_code) {
@@ -40,9 +37,8 @@ class Repository {
 
 
     //Get weather forecast for 16 days
-    fun getSixteenDaysForecastData(retrofit: Retrofit): MutableLiveData<List<WeatherDetailsObj>> {
-        val service = retrofit.create(WeatherServiceApiInterface::class.java)
-        val call = service.getSixteenDaysForecastData(lat, lon, com.example.navinbangar.sampleweatherapplication.helper.Helper.ForecastAppId)
+    fun getSixteenDaysForecastData(): MutableLiveData<List<WeatherDetailsObj>> {
+        val call = webservice.getSixteenDaysForecastData(lat, lon, com.example.navinbangar.sampleweatherapplication.helper.Helper.ForecastAppId)
         call.enqueue(object : Callback<WeatherForeCast> {
             override fun onResponse(call: Call<WeatherForeCast>, response: Response<WeatherForeCast>) {
                 if (response.code() == success_code) {

@@ -6,15 +6,16 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.example.navinbangar.sampleweatherapplication.CustomApplication
 import com.example.navinbangar.sampleweatherapplication.R
+import com.example.navinbangar.sampleweatherapplication.di.factory.ViewModelFactory
 import com.example.navinbangar.sampleweatherapplication.viewmodel.WeatherViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Retrofit
 import javax.inject.Inject
 
+
 class WeatherActivity : AppCompatActivity() {
-    protected lateinit var weatherViewModel: WeatherViewModel
     @Inject
-    lateinit var retrofit: Retrofit
+    internal lateinit var viewModelFactory: ViewModelFactory
+    protected lateinit var weatherViewModel: WeatherViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +35,8 @@ class WeatherActivity : AppCompatActivity() {
     }
 
     private fun subscribeHourlyForeCastLiveData() {
-        weatherViewModel.getHourlyWeatherForeCast(retrofit).removeObservers(this)
-        weatherViewModel.getHourlyWeatherForeCast(retrofit).observe(this, Observer { weatherDetailHourlyObj ->
+        weatherViewModel.getHourlyWeatherForeCast().removeObservers(this)
+        weatherViewModel.getHourlyWeatherForeCast().observe(this, Observer { weatherDetailHourlyObj ->
             val weatherHoursList = weatherViewModel.getHourlyForeCastHours(weatherDetailHourlyObj?.list)
             val tempratureList = weatherViewModel.getHourlyForeCastTemprature(weatherDetailHourlyObj?.list)
             updateHourlyForeCast(weatherHoursList, tempratureList)
@@ -47,16 +48,16 @@ class WeatherActivity : AppCompatActivity() {
     }
 
     private fun setUpViewModel() {
-        weatherViewModel = ViewModelProviders.of(this).get(WeatherViewModel::class.java)
+        weatherViewModel = ViewModelProviders.of(this, viewModelFactory).get(WeatherViewModel::class.java)
     }
 
     override fun onStop() {
         super.onStop()
-        weatherViewModel.getHourlyWeatherForeCast(retrofit).removeObservers(this)
+        weatherViewModel.getHourlyWeatherForeCast().removeObservers(this)
     }
     private fun setUpHourlyForecastBtnListener() {
         btnShowHourlyForcast.setOnClickListener {
-            weatherViewModel.getHourlyWeatherForeCast(retrofit).observe(this, Observer { weatherDetailHourlyObj ->
+            weatherViewModel.getHourlyWeatherForeCast().observe(this, Observer { weatherDetailHourlyObj ->
                 val weatherHoursList = weatherViewModel.getHourlyForeCastHours(weatherDetailHourlyObj?.list)
                 val tempratureList = weatherViewModel.getHourlyForeCastTemprature(weatherDetailHourlyObj?.list)
                 updateHourlyForeCast(weatherHoursList, tempratureList)
@@ -73,7 +74,7 @@ class WeatherActivity : AppCompatActivity() {
 
     private fun setUpSixteenDaysForecastBtnListener() {
         btnShowSixteenDaysForcast.setOnClickListener {
-            weatherViewModel.getSixteenDaysWeatherForeCast(retrofit).observe(this, Observer { data ->
+            weatherViewModel.getSixteenDaysWeatherForeCast().observe(this, Observer { data ->
                 //TODO-As implemenation is almost same for this scenerio like in hourlyforecast.Only need to change parameter in
                 // request api so will take it up once hourly forecast will get finish
             })
