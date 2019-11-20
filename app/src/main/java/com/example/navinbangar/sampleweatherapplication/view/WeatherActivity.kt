@@ -34,7 +34,6 @@ class WeatherActivity : AppCompatActivity() {
     }
 
     private fun subscribeHourlyForeCastLiveData() {
-        weatherViewModel.getHourlyWeatherForeCast(retrofit).removeObservers(this)
         weatherViewModel.getHourlyWeatherForeCast(retrofit).observe(this, Observer { weatherDetailHourlyObj ->
             val weatherHoursList = weatherViewModel.getHourlyForeCastHours(weatherDetailHourlyObj?.list)
             val tempratureList = weatherViewModel.getHourlyForeCastTemprature(weatherDetailHourlyObj?.list)
