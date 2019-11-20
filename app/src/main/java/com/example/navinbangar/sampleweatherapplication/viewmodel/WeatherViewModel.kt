@@ -3,9 +3,7 @@ package com.example.navinbangar.sampleweatherapplication.viewmodel
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.example.navinbangar.sampleweatherapplication.api.Repository
-import com.example.navinbangar.sampleweatherapplication.model.ListItem
-import com.example.navinbangar.sampleweatherapplication.model.WeatherDetailHourly
-import com.example.navinbangar.sampleweatherapplication.model.WeatherForeCast
+import com.example.navinbangar.sampleweatherapplication.model.*
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
@@ -23,7 +21,19 @@ import kotlin.collections.ArrayList
 
 class WeatherViewModel @Inject constructor(val weatherRepo: Repository) : ViewModel() {
     private val hourlyWeatherForecastDetailLiveData = MutableLiveData<WeatherDetailHourly?>()
+    private val currentWeatherForecastDetailLiveData = MutableLiveData<WeatherCurrentDetail?>()
+    private val sixteenDaysWeatherForecastDetailLiveData = MutableLiveData<WeatherForeCast?>()
 
+    var cityName: String = ""
+    var countryName: String = ""
+
+    fun getCurrentWeatherDetails(): MutableLiveData<WeatherCurrentDetail?> {
+        return weatherRepo.getCurrentWeatherData(currentWeatherForecastDetailLiveData, cityName, countryName)
+    }
+
+    fun getCurrentWeatherLiveData(): MutableLiveData<WeatherCurrentDetail?> {
+        return currentWeatherForecastDetailLiveData
+    }
     fun getHourlyWeatherForeCastDetail(): MutableLiveData<WeatherDetailHourly?> {
         return weatherRepo.getHourlyForecastData(hourlyWeatherForecastDetailLiveData)
     }
@@ -32,9 +42,14 @@ class WeatherViewModel @Inject constructor(val weatherRepo: Repository) : ViewMo
         return hourlyWeatherForecastDetailLiveData
     }
 
-    fun getSixteenDaysWeatherForeCast(): MutableLiveData<WeatherForeCast?> {
-        return weatherRepo.getSixteenDaysForecastData()
+    fun getSixteenDaysForeCastWeatherDetails(): MutableLiveData<WeatherForeCast?> {
+        return weatherRepo.getSixteenDaysForecastData(sixteenDaysWeatherForecastDetailLiveData, cityName, countryName)
     }
+
+    fun getSixteenDaysForeCastWeatherLiveData(): MutableLiveData<WeatherForeCast?> {
+        return sixteenDaysWeatherForecastDetailLiveData
+    }
+
 
     fun getHourlyForeCastHours(weatherDetailList: List<ListItem>?): List<String> {
         val hoursList = ArrayList<String>()
@@ -42,7 +57,16 @@ class WeatherViewModel @Inject constructor(val weatherRepo: Repository) : ViewMo
             val hours = getHoursFromDateString(it.dtTxt)
             hoursList.add(hours)
         }
-        return hoursList.take(12)
+        return hoursList.take(16)
+    }
+
+    fun getSixteenDaysForeCastHours(weatherDetailList: List<WeatherDetailsObj>?): List<String> {
+        val hoursList = ArrayList<String>()
+        weatherDetailList?.forEach {
+            val hours = getHoursFromDateString(it.dtTxt)
+            hoursList.add(hours)
+        }
+        return hoursList.take(16)
     }
 
     private fun getHoursFromDateString(dateString: String): String {
@@ -65,9 +89,18 @@ class WeatherViewModel @Inject constructor(val weatherRepo: Repository) : ViewMo
             val weatherObjListObj = it.tempratureObj
             tempratureList.add(convertFahrenheitToCelcius(weatherObjListObj.temp).toString())
         }
-        return tempratureList.take(12)
+        return tempratureList.take(16)
     }
 
+
+    fun getSixteenDaysForeCastTemprature(weatherDetailList: List<WeatherDetailsObj>?): List<String> {
+        val tempratureList = ArrayList<String>()
+        weatherDetailList?.forEach {
+            val weatherObjListObj = it.main
+            tempratureList.add(convertFahrenheitToCelcius(weatherObjListObj.temp).toString())
+        }
+        return tempratureList.take(16)
+    }
 
     // Converts to celcius
     fun convertFahrenheitToCelcius(fahrenheit: Double): Double {
@@ -80,10 +113,34 @@ class WeatherViewModel @Inject constructor(val weatherRepo: Repository) : ViewMo
         tempratureList.forEachIndexed { index, values ->
             entries.add(BarEntry(values.toFloat(), index))
         }
-        val barDataSet = BarDataSet(entries, "Hourly Weather Forecast")
+        val barDataSet = BarDataSet(entries, " Weather Forecast")
         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
         val data = BarData(weatherHoursList, barDataSet)
         return data
     }
+
+    fun getCurrentWeatherDetailText(weatherDetailObj: WeatherCurrentDetail?): String {
+        val stringBuilder: String
+        stringBuilder = "Country: " +
+                weatherDetailObj?.sys?.country +
+                "\n" +
+                "Temperature: " +
+                weatherDetailObj?.main?.temp +
+                "\n" +
+                "Temperature(Min): " +
+                weatherDetailObj?.main?.tempMin +
+                "\n" +
+                "Temperature(Max): " +
+                weatherDetailObj?.main?.tempMax +
+                "\n" +
+                "Humidity: " +
+                weatherDetailObj?.main?.humidity +
+                "\n" +
+                "Pressure: " +
+                weatherDetailObj?.main?.pressure
+
+        return stringBuilder
+    }
+
 
 }

@@ -1,6 +1,7 @@
 package com.example.navinbangar.sampleweatherapplication.api
 
 import android.arch.lifecycle.MutableLiveData
+import com.example.navinbangar.sampleweatherapplication.model.WeatherCurrentDetail
 import com.example.navinbangar.sampleweatherapplication.model.WeatherDetailHourly
 import com.example.navinbangar.sampleweatherapplication.model.WeatherForeCast
 import retrofit2.Call
@@ -12,7 +13,25 @@ import retrofit2.Response
  */
 
 class Repository(val webservice: WeatherServiceApiInterface) {
-    private var sixteenDaysForeCastLiveData: MutableLiveData<WeatherForeCast?> = MutableLiveData()
+    ///Get weather forecast hourly
+    fun getCurrentWeatherData(currentWeatherLiveData: MutableLiveData<WeatherCurrentDetail?>, cityName: String, countryName: String): MutableLiveData<WeatherCurrentDetail?> {
+        val call = webservice.getCurrentWeatherData(cityName + "," + countryName, com.example.navinbangar.sampleweatherapplication.helper.Helper.ForecastAppId)
+        call.enqueue(object : Callback<WeatherCurrentDetail> {
+            override fun onResponse(call: Call<WeatherCurrentDetail>, response: Response<WeatherCurrentDetail>) {
+                if (response.code() == success_code) {
+                    val weatherForecastObj = response.body()
+                    currentWeatherLiveData.value = weatherForecastObj
+                }
+            }
+
+            override fun onFailure(call: Call<WeatherCurrentDetail>, t: Throwable) {
+                currentWeatherLiveData.value = null
+            }
+        })
+
+        return currentWeatherLiveData
+    }
+
 
     ///Get weather forecast hourly
     fun getHourlyForecastData(hourlyrForeCastLiveData: MutableLiveData<WeatherDetailHourly?>): MutableLiveData<WeatherDetailHourly?> {
@@ -33,10 +52,9 @@ class Repository(val webservice: WeatherServiceApiInterface) {
         return hourlyrForeCastLiveData
     }
 
-
     //Get weather forecast for 16 days
-    fun getSixteenDaysForecastData(): MutableLiveData<WeatherForeCast?> {
-        val call = webservice.getSixteenDaysForecastData(lat, lon, com.example.navinbangar.sampleweatherapplication.helper.Helper.ForecastAppId)
+    fun getSixteenDaysForecastData(sixteenDaysForeCastLiveData: MutableLiveData<WeatherForeCast?>, cityName: String, countryName: String): MutableLiveData<WeatherForeCast?> {
+        val call = webservice.getSixteenDaysForecastData(cityName + "," + countryName, com.example.navinbangar.sampleweatherapplication.helper.Helper.ForecastAppId, mode, unit, cnt)
         call.enqueue(object : Callback<WeatherForeCast> {
             override fun onResponse(call: Call<WeatherForeCast>, response: Response<WeatherForeCast>) {
                 if (response.code() == success_code) {
@@ -54,6 +72,9 @@ class Repository(val webservice: WeatherServiceApiInterface) {
     companion object {
         var lat = "9.96"
         var lon = "76.25"
+        val unit = "metric"
+        val mode = "json"
+        val cnt = "16"
         val success_code = 200
     }
 }
