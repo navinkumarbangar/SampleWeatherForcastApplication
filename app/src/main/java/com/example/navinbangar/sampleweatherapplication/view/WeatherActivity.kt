@@ -22,8 +22,17 @@ class WeatherActivity : AppCompatActivity() {
         setUpDagger()
         setUpViewModel()
         setUpHourlyForecastBtnListener()
+        subscribeHourlyForeCastLiveData()
         setUpSixteenDaysForecastBtnListener()
 
+    }
+
+    private fun subscribeHourlyForeCastLiveData() {
+        weatherViewModel.getHourlyWeatherForeCast(retrofit).observe(this, Observer { weatherDetailHourlyObj ->
+            val weatherHoursList = weatherViewModel.getHourlyForeCastHours(weatherDetailHourlyObj?.list)
+            val tempratureList = weatherViewModel.getHourlyForeCastTemprature(weatherDetailHourlyObj?.list)
+            updateHourlyForeCast(weatherHoursList, tempratureList)
+        })
     }
 
     private fun setUpDagger() {
@@ -48,7 +57,7 @@ class WeatherActivity : AppCompatActivity() {
         val barData = weatherViewModel.getBarGraphData(weatherHoursList, tempratureList)
         barChartForecast.data = barData
         barChartForecast.setDescription("Forecast Data")
-        barChartForecast.animateY(5000)
+        barChartForecast.animateY(1000)
     }
 
     private fun setUpSixteenDaysForecastBtnListener() {
