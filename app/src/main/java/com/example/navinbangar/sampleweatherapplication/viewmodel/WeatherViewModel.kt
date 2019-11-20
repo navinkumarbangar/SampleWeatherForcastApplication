@@ -39,7 +39,7 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
             val hours = getHousFromDateString(it.dtTxt)
             hoursList.add(hours)
         }
-        return hoursList
+        return hoursList.take(12)
     }
 
     private fun getHousFromDateString(dateString: String): String {
@@ -62,7 +62,7 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
             val weatherObjListObj = it.tempratureObj
             tempratureList.add(convertFahrenheitToCelcius(weatherObjListObj.temp).toString())
         }
-        return tempratureList
+        return tempratureList.take(12)
     }
 
 
@@ -70,6 +70,8 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
     private fun convertFahrenheitToCelcius(fahrenheit: Double): Double {
         return (fahrenheit - 32) * 5 / 9
     }
+
+    //create bar data object
     fun getBarGraphData(weatherHoursList: List<String>, tempratureList: List<String>): BarData {
         val entries = ArrayList<BarEntry>()
         tempratureList.forEachIndexed { index, values ->
