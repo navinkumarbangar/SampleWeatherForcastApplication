@@ -11,6 +11,7 @@
         android:id="@+id/clShowWeatherForeCastDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/clShowWeatherButtons"
         android:layout_margin="@dimen/padding_margin_8"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -40,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_margin_8"
-            android:text="@string/hourly_forcast"
+            android:text="@string/hourly_forcast_btn_text"
             android:background="@drawable/button_style_round_corner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -48,11 +49,25 @@
         <Button
             android:id="@+id/btnShowSixteenDaysForcast"
             android:background="@drawable/button_style_round_corner"
+            android:text="@string/sixteen_day_forcast_btn_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_margin_8"
-            android:text="@string/sixteen_day_forcast"
+            android:textAllCaps="false"
             android:enabled="false"
             app:layout_constraintTop_toBottomOf="@+id/btnShowHourlyForcast" />
     </android.support.constraint.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btnCloseApp"
+        style="@style/button_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_margin_32"
+        android:background="@drawable/button_style_round_corner"
+        android:text="@string/close_bn_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clShowWeatherButtons" />
+
 </android.support.constraint.ConstraintLayout>
