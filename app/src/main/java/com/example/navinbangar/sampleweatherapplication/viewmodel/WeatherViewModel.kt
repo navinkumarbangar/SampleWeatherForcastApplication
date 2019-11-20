@@ -36,13 +36,13 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
     fun getHourlyForeCastHours(weatherDetailList: List<ListItem>?): List<String> {
         val hoursList = ArrayList<String>()
         weatherDetailList?.forEach {
-            val hours = getHousFromDateString(it.dtTxt)
+            val hours = getHoursFromDateString(it.dtTxt)
             hoursList.add(hours)
         }
         return hoursList.take(12)
     }
 
-    private fun getHousFromDateString(dateString: String): String {
+    private fun getHoursFromDateString(dateString: String): String {
         var hour = ""
         val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
         try {
@@ -67,7 +67,7 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
 
 
     // Converts to celcius
-    private fun convertFahrenheitToCelcius(fahrenheit: Double): Double {
+    fun convertFahrenheitToCelcius(fahrenheit: Double): Double {
         return (fahrenheit - 32) * 5 / 9
     }
 

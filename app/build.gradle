@@ -54,6 +54,7 @@ android {
         jvmTarget = "1.8"
     }
 }
+
 kotlin {
     ext {
         okhttp3_version = '3.12.0'
@@ -61,7 +62,9 @@ kotlin {
         mp3chart_version = 'v2.2.4'
         dagger_version = '2.24'
         dagger_android_version='2.16'
+        mokito_version='1.10.19'
     }
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -70,7 +73,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    testCompile "org.mockito:mockito-core:1.10.19"
     implementation "android.arch.lifecycle:extensions:1.1.1"
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
 
