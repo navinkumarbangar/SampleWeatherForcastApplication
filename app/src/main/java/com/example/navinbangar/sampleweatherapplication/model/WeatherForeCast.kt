@@ -39,40 +39,40 @@ data class City(@SerializedName("country")
                 val id: Int = 0)
 
 
-data class ListItem(@SerializedName("dt")
+data class WeatherDetailsObj(@SerializedName("dt")
                     val dt: Int = 0,
-                    @SerializedName("dt_txt")
+                             @SerializedName("dt_txt")
                     val dtTxt: String = "",
-                    @SerializedName("weather")
+                             @SerializedName("weather")
                     val weather: List<WeatherItem>?,
-                    @SerializedName("main")
-                    val main: Main,
-                    @SerializedName("clouds")
+                             @SerializedName("main")
+                             val main: TempratureObj,
+                             @SerializedName("clouds")
                     val clouds: Clouds,
-                    @SerializedName("sys")
+                             @SerializedName("sys")
                     val sys: Sys,
-                    @SerializedName("wind")
+                             @SerializedName("wind")
                     val wind: Wind)
 
 data class Sys(@SerializedName("pod")
                val pod: String = "")
 
 
-data class Main(@SerializedName("temp")
+data class TempratureObj(@SerializedName("temp")
                 val temp: Double = 0.0,
-                @SerializedName("temp_min")
+                         @SerializedName("temp_min")
                 val tempMin: Double = 0.0,
-                @SerializedName("grnd_level")
+                         @SerializedName("grnd_level")
                 val grndLevel: Double = 0.0,
-                @SerializedName("temp_kf")
+                         @SerializedName("temp_kf")
                 val tempKf: Int = 0,
-                @SerializedName("humidity")
+                         @SerializedName("humidity")
                 val humidity: Int = 0,
-                @SerializedName("pressure")
+                         @SerializedName("pressure")
                 val pressure: Double = 0.0,
-                @SerializedName("sea_level")
+                         @SerializedName("sea_level")
                 val seaLevel: Double = 0.0,
-                @SerializedName("temp_max")
+                         @SerializedName("temp_max")
                 val tempMax: Double = 0.0)
 
 
@@ -85,6 +85,6 @@ data class WeatherForeCast(@SerializedName("city")
                            @SerializedName("message")
                            val message: Double = 0.0,
                            @SerializedName("list")
-                           val list: List<ListItem>?)
+                           val list: List<WeatherDetailsObj>?)
 
 
