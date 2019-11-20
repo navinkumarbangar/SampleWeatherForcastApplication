@@ -21,10 +21,10 @@ android {
     }
     productFlavors{
         free{
-            applicationId "com.example.navinbangar.sampleweatherapplication"
+            applicationId "com.example.navinbangar.sampleweatherapplication.free"
         }
         paid{
-            applicationId "com.example.navinbangar.sampleweatherapplication"
+            applicationId "com.example.navinbangar.sampleweatherapplication.paid"
         }
     }
 

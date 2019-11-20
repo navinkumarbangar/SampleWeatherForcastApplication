@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
+    android:background="@color/sea_green_alt_50"
     tools:context=".view.WeatherActivity">
 
     <android.support.constraint.ConstraintLayout
@@ -41,15 +41,18 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_margin_8"
             android:text="@string/hourly_forcast"
+            android:background="@drawable/button_style_round_corner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/btnShowSixteenDaysForcast"
+            android:background="@drawable/button_style_round_corner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_margin_8"
             android:text="@string/sixteen_day_forcast"
+            android:enabled="false"
             app:layout_constraintTop_toBottomOf="@+id/btnShowHourlyForcast" />
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

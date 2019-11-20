@@ -2,7 +2,6 @@ package com.example.navinbangar.sampleweatherapplication.view
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.location.LocationManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.example.navinbangar.sampleweatherapplication.CustomApplication
@@ -16,9 +15,6 @@ class WeatherActivity : AppCompatActivity() {
     protected lateinit var weatherViewModel: WeatherViewModel
     @Inject
     lateinit var retrofit: Retrofit
-    private var locationManager: LocationManager? = null
-    private var latitude: Double = 0.0
-    private var longitude: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +54,8 @@ class WeatherActivity : AppCompatActivity() {
     private fun setUpSixteenDaysForecastBtnListener() {
         btnShowSixteenDaysForcast.setOnClickListener {
             weatherViewModel.getSixteenDaysWeatherForeCast(retrofit).observe(this, Observer { data ->
-
+                //TODO-As implemenation is almost same for this scenerio like in hourlyforecast.Only need to change parameter in
+                // request api so will take it up once hourly forecast will get finish
             })
         }
     }

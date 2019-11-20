@@ -9,9 +9,9 @@
     </style>
 
     <style name="button_style">
-        <item name="android:background">@drawable/button_complex_dialog_selector</item>
-        <item name="android:textColor">@color/sea_green_alt_color</item>
+        <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">14sp</item>
         <item name="android:padding">8dp</item>
+        <item name="android:textAllCaps">false</item>
     </style>
 </resources>
