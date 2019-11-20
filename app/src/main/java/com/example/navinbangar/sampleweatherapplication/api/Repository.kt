@@ -2,7 +2,6 @@ package com.example.navinbangar.sampleweatherapplication.api
 
 import android.arch.lifecycle.MutableLiveData
 import com.example.navinbangar.sampleweatherapplication.model.WeatherDetailHourly
-import com.example.navinbangar.sampleweatherapplication.model.WeatherDetailsObj
 import com.example.navinbangar.sampleweatherapplication.model.WeatherForeCast
 import retrofit2.Call
 import retrofit2.Callback
@@ -13,11 +12,10 @@ import retrofit2.Response
  */
 
 class Repository(val webservice: WeatherServiceApiInterface) {
-    private var hourlyrForeCastLiveData: MutableLiveData<WeatherDetailHourly?> = MutableLiveData()
-    private var sixteenDaysForeCastLiveData: MutableLiveData<List<WeatherDetailsObj>> = MutableLiveData()
+    private var sixteenDaysForeCastLiveData: MutableLiveData<WeatherForeCast?> = MutableLiveData()
 
     ///Get weather forecast hourly
-    fun getHourlyForecastData(): MutableLiveData<WeatherDetailHourly?> {
+    fun getHourlyForecastData(hourlyrForeCastLiveData: MutableLiveData<WeatherDetailHourly?>): MutableLiveData<WeatherDetailHourly?> {
         val call = webservice.getHourlyWeatherData(lat, lon, com.example.navinbangar.sampleweatherapplication.helper.Helper.ForecastAppId)
         call.enqueue(object : Callback<WeatherDetailHourly> {
             override fun onResponse(call: Call<WeatherDetailHourly>, response: Response<WeatherDetailHourly>) {
@@ -37,17 +35,17 @@ class Repository(val webservice: WeatherServiceApiInterface) {
 
 
     //Get weather forecast for 16 days
-    fun getSixteenDaysForecastData(): MutableLiveData<List<WeatherDetailsObj>> {
+    fun getSixteenDaysForecastData(): MutableLiveData<WeatherForeCast?> {
         val call = webservice.getSixteenDaysForecastData(lat, lon, com.example.navinbangar.sampleweatherapplication.helper.Helper.ForecastAppId)
         call.enqueue(object : Callback<WeatherForeCast> {
             override fun onResponse(call: Call<WeatherForeCast>, response: Response<WeatherForeCast>) {
                 if (response.code() == success_code) {
                     val weatherForecastObj = response.body()
-                    weatherForecastObj?.list?.let { sixteenDaysForeCastLiveData.value = it }
+                    sixteenDaysForeCastLiveData.postValue(weatherForecastObj)
                 }
             }
             override fun onFailure(call: Call<WeatherForeCast>, t: Throwable) {
-                sixteenDaysForeCastLiveData.value = emptyList()
+                sixteenDaysForeCastLiveData.postValue(null)
             }
         })
         return sixteenDaysForeCastLiveData

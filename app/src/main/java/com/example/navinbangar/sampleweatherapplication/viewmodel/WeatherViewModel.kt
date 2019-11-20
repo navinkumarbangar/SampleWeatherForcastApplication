@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModel
 import com.example.navinbangar.sampleweatherapplication.api.Repository
 import com.example.navinbangar.sampleweatherapplication.model.ListItem
 import com.example.navinbangar.sampleweatherapplication.model.WeatherDetailHourly
-import com.example.navinbangar.sampleweatherapplication.model.WeatherDetailsObj
+import com.example.navinbangar.sampleweatherapplication.model.WeatherForeCast
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
@@ -22,11 +22,17 @@ import kotlin.collections.ArrayList
  */
 
 class WeatherViewModel @Inject constructor(val weatherRepo: Repository) : ViewModel() {
-    fun getHourlyWeatherForeCast(): MutableLiveData<WeatherDetailHourly?> {
-        return weatherRepo.getHourlyForecastData()
+    private val hourlyWeatherForecastDetailLiveData = MutableLiveData<WeatherDetailHourly?>()
+
+    fun getHourlyWeatherForeCastDetail(): MutableLiveData<WeatherDetailHourly?> {
+        return weatherRepo.getHourlyForecastData(hourlyWeatherForecastDetailLiveData)
     }
 
-    fun getSixteenDaysWeatherForeCast(): MutableLiveData<List<WeatherDetailsObj>> {
+    fun getHourlyWeatherForeCastLiveData(): MutableLiveData<WeatherDetailHourly?> {
+        return hourlyWeatherForecastDetailLiveData
+    }
+
+    fun getSixteenDaysWeatherForeCast(): MutableLiveData<WeatherForeCast?> {
         return weatherRepo.getSixteenDaysForecastData()
     }
 

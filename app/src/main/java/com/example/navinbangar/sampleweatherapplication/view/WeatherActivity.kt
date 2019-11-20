@@ -22,10 +22,15 @@ class WeatherActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setUpDagger()
         setUpViewModel()
+        fetchHourlyForeCastDetaail()
         setUpHourlyForecastBtnListener()
         setUpCloseBtnClickListener()
         subscribeHourlyForeCastLiveData()
         setUpSixteenDaysForecastBtnListener()
+    }
+
+    private fun fetchHourlyForeCastDetaail() {
+        weatherViewModel.getHourlyWeatherForeCastDetail()
     }
 
     private fun setUpCloseBtnClickListener() {
@@ -35,8 +40,7 @@ class WeatherActivity : AppCompatActivity() {
     }
 
     private fun subscribeHourlyForeCastLiveData() {
-        weatherViewModel.getHourlyWeatherForeCast().removeObservers(this)
-        weatherViewModel.getHourlyWeatherForeCast().observe(this, Observer { weatherDetailHourlyObj ->
+        weatherViewModel.getHourlyWeatherForeCastLiveData().observe(this, Observer { weatherDetailHourlyObj ->
             val weatherHoursList = weatherViewModel.getHourlyForeCastHours(weatherDetailHourlyObj?.list)
             val tempratureList = weatherViewModel.getHourlyForeCastTemprature(weatherDetailHourlyObj?.list)
             updateHourlyForeCast(weatherHoursList, tempratureList)
@@ -51,17 +55,10 @@ class WeatherActivity : AppCompatActivity() {
         weatherViewModel = ViewModelProviders.of(this, viewModelFactory).get(WeatherViewModel::class.java)
     }
 
-    override fun onStop() {
-        super.onStop()
-        weatherViewModel.getHourlyWeatherForeCast().removeObservers(this)
-    }
+
     private fun setUpHourlyForecastBtnListener() {
         btnShowHourlyForcast.setOnClickListener {
-            weatherViewModel.getHourlyWeatherForeCast().observe(this, Observer { weatherDetailHourlyObj ->
-                val weatherHoursList = weatherViewModel.getHourlyForeCastHours(weatherDetailHourlyObj?.list)
-                val tempratureList = weatherViewModel.getHourlyForeCastTemprature(weatherDetailHourlyObj?.list)
-                updateHourlyForeCast(weatherHoursList, tempratureList)
-            })
+            weatherViewModel.getHourlyWeatherForeCastDetail()
         }
     }
 
@@ -69,13 +66,13 @@ class WeatherActivity : AppCompatActivity() {
         val barData = weatherViewModel.getBarGraphData(weatherHoursList, tempratureList)
         barChartForecast.data = barData
         barChartForecast.setDescription("Hourly Weather Forecast")
-        barChartForecast.animateY(1000)
+        barChartForecast.animateY(500)
     }
 
     private fun setUpSixteenDaysForecastBtnListener() {
         btnShowSixteenDaysForcast.setOnClickListener {
             weatherViewModel.getSixteenDaysWeatherForeCast().observe(this, Observer { data ->
-                //TODO-As implemenation is almost same for this scenerio like in hourlyforecast.Only need to change parameter in
+                //TODO-As implemenation is almost same for this scenerio like in hourly forecast.Only need to change parameter in
                 // request api so will take it up once hourly forecast will get finish
             })
         }
