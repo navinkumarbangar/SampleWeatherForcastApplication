@@ -1,6 +1,7 @@
 package com.example.navinbangar.sampleweatherapplication.api
 
 import android.arch.lifecycle.MutableLiveData
+import com.example.navinbangar.sampleweatherapplication.model.WeatherDetailHourly
 import com.example.navinbangar.sampleweatherapplication.model.WeatherDetailsObj
 import com.example.navinbangar.sampleweatherapplication.model.WeatherForeCast
 import retrofit2.Call
@@ -14,22 +15,23 @@ import retrofit2.Retrofit
 
 class Repository {
 
-    private var hourlyrForeCastLiveData: MutableLiveData<List<WeatherDetailsObj>> = MutableLiveData()
+    private var hourlyrForeCastLiveData: MutableLiveData<WeatherDetailHourly?> = MutableLiveData()
     private var sixteenDaysForeCastLiveData: MutableLiveData<List<WeatherDetailsObj>> = MutableLiveData()
 
     ///Get weather forecast hourly
-    fun getHourlyForecastData(retrofit: Retrofit): MutableLiveData<List<WeatherDetailsObj>> {
+    fun getHourlyForecastData(retrofit: Retrofit): MutableLiveData<WeatherDetailHourly?> {
         val service = retrofit.create(WeatherServiceApiInterface::class.java)
-        val call = service.getCurrentWeatherData(lat, lon, com.example.navinbangar.sampleweatherapplication.helper.Helper.ForecastAppId)
-        call.enqueue(object : Callback<WeatherForeCast> {
-            override fun onResponse(call: Call<WeatherForeCast>, response: Response<WeatherForeCast>) {
-                if (response.code() == 200) {
+        val call = service.getHourlyWeatherData(lat, lon, com.example.navinbangar.sampleweatherapplication.helper.Helper.ForecastAppId)
+        call.enqueue(object : Callback<WeatherDetailHourly> {
+            override fun onResponse(call: Call<WeatherDetailHourly>, response: Response<WeatherDetailHourly>) {
+                if (response.code() == success_code) {
                     val weatherForecastObj = response.body()
-                    weatherForecastObj?.list?.let { hourlyrForeCastLiveData.value = it }
+                    hourlyrForeCastLiveData.value = weatherForecastObj
                 }
             }
-            override fun onFailure(call: Call<WeatherForeCast>, t: Throwable) {
-                hourlyrForeCastLiveData.value = emptyList()
+
+            override fun onFailure(call: Call<WeatherDetailHourly>, t: Throwable) {
+                hourlyrForeCastLiveData.value = null
             }
         })
 
@@ -43,7 +45,7 @@ class Repository {
         val call = service.getSixteenDaysForecastData(lat, lon, com.example.navinbangar.sampleweatherapplication.helper.Helper.ForecastAppId)
         call.enqueue(object : Callback<WeatherForeCast> {
             override fun onResponse(call: Call<WeatherForeCast>, response: Response<WeatherForeCast>) {
-                if (response.code() == 200) {
+                if (response.code() == success_code) {
                     val weatherForecastObj = response.body()
                     weatherForecastObj?.list?.let { sixteenDaysForeCastLiveData.value = it }
                 }
@@ -58,5 +60,6 @@ class Repository {
     companion object {
         var lat = "9.96"
         var lon = "76.25"
+        val success_code = 200
     }
 }

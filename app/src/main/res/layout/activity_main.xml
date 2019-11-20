@@ -15,27 +15,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/barChartSixteenDaysForecast"
+            android:id="@+id/barChartForecast"
             android:layout_width="match_parent"
             android:layout_height="@dimen/forecastChart_height_180"
             android:layout_marginBottom="@dimen/padding_margin_16"
             android:layout_marginEnd="@dimen/padding_margin_8"
             android:layout_marginStart="@dimen/padding_margin_8"
             android:layout_marginTop="@dimen/padding_margin_16"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/tvHourlyForecast"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/padding_margin_16"
-            android:layout_marginEnd="@dimen/padding_margin_8"
-            android:layout_marginStart="@dimen/padding_margin_8"
-            android:layout_marginTop="@dimen/padding_margin_16"
-            android:textAlignment="center"
-            android:textSize="@dimen/text_16"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </android.support.constraint.ConstraintLayout>

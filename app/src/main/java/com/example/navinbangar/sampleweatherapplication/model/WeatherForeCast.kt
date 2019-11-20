@@ -15,13 +15,13 @@ data class Wind(@SerializedName("deg")
                 val speed: Double = 0.0)
 
 
-data class WeatherItem(@SerializedName("icon")
+data class WeatherItemDetails(@SerializedName("icon")
                        val icon: String = "",
-                       @SerializedName("description")
+                              @SerializedName("description")
                        val description: String = "",
-                       @SerializedName("main")
+                              @SerializedName("main")
                        val main: String = "",
-                       @SerializedName("id")
+                              @SerializedName("id")
                        val id: Int = 0)
 
 

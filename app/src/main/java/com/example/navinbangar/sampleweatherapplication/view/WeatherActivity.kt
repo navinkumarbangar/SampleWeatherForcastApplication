@@ -16,7 +16,7 @@ import retrofit2.Retrofit
 import javax.inject.Inject
 
 class WeatherActivity : AppCompatActivity() {
-    protected lateinit var networkViewModel: WeatherViewModel
+    protected lateinit var weatherViewModel: WeatherViewModel
     @Inject
     lateinit var retrofit: Retrofit
     private var locationManager: LocationManager? = null
@@ -60,33 +60,32 @@ class WeatherActivity : AppCompatActivity() {
     }
 
     private fun setUpViewModel() {
-        networkViewModel = ViewModelProviders.of(this).get(WeatherViewModel::class.java)
+        weatherViewModel = ViewModelProviders.of(this).get(WeatherViewModel::class.java)
     }
 
     private fun setUpHourlyForecastBtnListener() {
         btnShowHourlyForcast.setOnClickListener {
-            networkViewModel.getHourlyWeatherForeCast(retrofit, latitude, longitude).observe(this, Observer { t ->
-
+            weatherViewModel.getHourlyWeatherForeCast(retrofit).observe(this, Observer { weatherDetailHourlyObj ->
+                val weatherHoursList = weatherViewModel.getHourlyForeCastHours(weatherDetailHourlyObj?.list)
+                val tempratureList = weatherViewModel.getHourlyForeCastTemprature(weatherDetailHourlyObj?.list)
+                updateHourlyForeCast(weatherHoursList, tempratureList)
             })
         }
     }
 
+    private fun updateHourlyForeCast(weatherHoursList: List<String>, tempratureList: List<String>) {
+        val barData = weatherViewModel.getBarGraphData(weatherHoursList, tempratureList)
+        barChartForecast.data = barData
+        barChartForecast.setDescription("Forecast Data")
+        barChartForecast.animateY(5000)
+    }
+
     private fun setUpSixteenDaysForecastBtnListener() {
         btnShowSixteenDaysForcast.setOnClickListener {
-            networkViewModel.getSixteenDaysWeatherForeCast(retrofit, latitude, longitude).observe(this, Observer { data ->
-                barChartSixteenDaysForecast.data = data // set the data and list of lables into chart
-                val diff = barChartSixteenDaysForecast!!.data.yMax - barChartSixteenDaysForecast!!.data.yMin
-                Log.d("DATAAA", diff.toString())
-                val actual = diff.toString()
-                var actualDiff = actual
-                // Log.d("TTEXTACT", "TTEXT" + ttext + "ACTUALDIFF" + actualDiff)
-                barChartSixteenDaysForecast!!.setDescription("Forecast Data")
-                barChartSixteenDaysForecast!!.animateY(5000)
+            weatherViewModel.getSixteenDaysWeatherForeCast(retrofit).observe(this, Observer { data ->
 
             })
         }
-
-
     }
 
 }
