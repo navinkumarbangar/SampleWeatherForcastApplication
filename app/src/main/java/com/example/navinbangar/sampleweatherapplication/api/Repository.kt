@@ -13,25 +13,23 @@ import retrofit2.Retrofit
  */
 
 class Repository {
+
     private var hourlyrForeCastLiveData: MutableLiveData<List<WeatherDetailsObj>> = MutableLiveData()
     private var sixteenDaysForeCastLiveData: MutableLiveData<List<WeatherDetailsObj>> = MutableLiveData()
 
     ///Get weather forecast hourly
-    fun getHourlyForecastData(retrofit: Retrofit, latitude: Double, longitude: Double): MutableLiveData<List<WeatherDetailsObj>> {
+    fun getHourlyForecastData(retrofit: Retrofit): MutableLiveData<List<WeatherDetailsObj>> {
         val service = retrofit.create(WeatherServiceApiInterface::class.java)
-        val call = service.getCurrentWeatherData(latitude.toString(), longitude.toString(), com.example.navinbangar.sampleweatherapplication.helper.Helper.ForecastAppId)
+        val call = service.getCurrentWeatherData(lat, lon, com.example.navinbangar.sampleweatherapplication.helper.Helper.ForecastAppId)
         call.enqueue(object : Callback<WeatherForeCast> {
             override fun onResponse(call: Call<WeatherForeCast>, response: Response<WeatherForeCast>) {
                 if (response.code() == 200) {
                     val weatherForecastObj = response.body()
-                    val weatherForecastObjectList = ArrayList<WeatherDetailsObj>()
-                    weatherForecastObj?.list?.let { weatherForecastObjectList.addAll(it) }
-                    hourlyrForeCastLiveData.value = weatherForecastObjectList
+                    weatherForecastObj?.list?.let { hourlyrForeCastLiveData.value = it }
                 }
-
             }
             override fun onFailure(call: Call<WeatherForeCast>, t: Throwable) {
-                hourlyrForeCastLiveData.value = null
+                hourlyrForeCastLiveData.value = emptyList()
             }
         })
 
@@ -40,22 +38,25 @@ class Repository {
 
 
     //Get weather forecast for 16 days
-    fun getSixteenDaysForecastData(retrofit: Retrofit, latitude: Double, longitude: Double): MutableLiveData<List<WeatherDetailsObj>> {
+    fun getSixteenDaysForecastData(retrofit: Retrofit): MutableLiveData<List<WeatherDetailsObj>> {
         val service = retrofit.create(WeatherServiceApiInterface::class.java)
-        val call = service.getSixteenDaysForecastData(latitude.toString(), longitude.toString(), com.example.navinbangar.sampleweatherapplication.helper.Helper.ForecastAppId)
+        val call = service.getSixteenDaysForecastData(lat, lon, com.example.navinbangar.sampleweatherapplication.helper.Helper.ForecastAppId)
         call.enqueue(object : Callback<WeatherForeCast> {
             override fun onResponse(call: Call<WeatherForeCast>, response: Response<WeatherForeCast>) {
                 if (response.code() == 200) {
                     val weatherForecastObj = response.body()
-                    val weatherForecastObjectList = ArrayList<WeatherDetailsObj>()
-                    weatherForecastObj?.list?.let { weatherForecastObjectList.addAll(it) }
-                    sixteenDaysForeCastLiveData.value = weatherForecastObjectList
+                    weatherForecastObj?.list?.let { sixteenDaysForeCastLiveData.value = it }
                 }
             }
             override fun onFailure(call: Call<WeatherForeCast>, t: Throwable) {
-                sixteenDaysForeCastLiveData.value = null
+                sixteenDaysForeCastLiveData.value = emptyList()
             }
         })
         return sixteenDaysForeCastLiveData
+    }
+
+    companion object {
+        var lat = "9.96"
+        var lon = "76.25"
     }
 }

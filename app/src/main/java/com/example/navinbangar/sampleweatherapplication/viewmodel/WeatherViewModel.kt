@@ -12,34 +12,26 @@ import retrofit2.Retrofit
  */
 
 class WeatherViewModel(application: Application) : AndroidViewModel(application) {
-    private var hourlyrForeCastLiveData: MutableLiveData<List<WeatherDetailsObj>> = MutableLiveData()
-    private var sixteenDaysForeCastLiveData: MutableLiveData<List<WeatherDetailsObj>> = MutableLiveData()
     private var hourlyWeatherDetailsList = mutableListOf<WeatherDetailsObj>()
     private var sixteenWeatherDetailsList = mutableListOf<WeatherDetailsObj>()
 
     private val mRepository: Repository = Repository()
     private lateinit var weatherDate: String
-    private lateinit var temprature: String
-    private lateinit var weatherDescription: String
-    private lateinit var humidity: String
-    private lateinit var pressure: String
+    private lateinit var hourlyForeCastTemprature: String
+    private lateinit var sixteenDaysForeCastTemprature: String
+    private lateinit var hourlyWeatherDescription: String
+    private lateinit var sixteenDaysWeatherDescription: String
+    private lateinit var hourlyForecastHumidity: String
+    private lateinit var sixteenDaysForecastHumidity: String
+    private lateinit var hourlyForecastPressure: String
 
-    fun getHourlyWeatherForeCast(retrofit: Retrofit, latitude: Double, longitude: Double) {
-        hourlyWeatherDetailsList = mRepository.getHourlyForecastData(retrofit, latitude, longitude).value?.toMutableList() ?: emptyList<WeatherDetailsObj>().toMutableList()
+    fun getHourlyWeatherForeCast(retrofit: Retrofit): MutableLiveData<List<WeatherDetailsObj>> {
+        return mRepository.getHourlyForecastData(retrofit)
     }
 
-    fun getSixteenDaysWeatherForeCast(retrofit: Retrofit, latitude: Double, longitude: Double) {
-        sixteenWeatherDetailsList = mRepository.getHourlyForecastData(retrofit, latitude, longitude).value?.toMutableList() ?: emptyList<WeatherDetailsObj>().toMutableList()
+    fun getSixteenDaysWeatherForeCast(retrofit: Retrofit): MutableLiveData<List<WeatherDetailsObj>> {
+        return mRepository.getSixteenDaysForecastData(retrofit)
     }
 
-    fun getWeatherDate() = weatherDate
-    fun getTemprature() = temprature
-    fun getWeatherDescription() = weatherDescription
-    fun getHumidity() = humidity
-    fun getPressure() = pressure
-
-    fun fetchWeatherDate() {
-
-    }
 
 }
