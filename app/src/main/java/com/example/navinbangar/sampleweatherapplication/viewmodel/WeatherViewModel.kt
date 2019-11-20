@@ -60,11 +60,16 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
         val tempratureList = ArrayList<String>()
         weatherDetailList?.forEach {
             val weatherObjListObj = it.tempratureObj
-            tempratureList.add(weatherObjListObj.temp.toString())
+            tempratureList.add(convertFahrenheitToCelcius(weatherObjListObj.temp).toString())
         }
         return tempratureList
     }
 
+
+    // Converts to celcius
+    private fun convertFahrenheitToCelcius(fahrenheit: Double): Double {
+        return (fahrenheit - 32) * 5 / 9
+    }
     fun getBarGraphData(weatherHoursList: List<String>, tempratureList: List<String>): BarData {
         val entries = ArrayList<BarEntry>()
         tempratureList.forEachIndexed { index, values ->

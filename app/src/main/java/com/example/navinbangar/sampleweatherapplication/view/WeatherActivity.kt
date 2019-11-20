@@ -2,12 +2,9 @@ package com.example.navinbangar.sampleweatherapplication.view
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.location.Location
-import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import com.example.navinbangar.sampleweatherapplication.CustomApplication
 import com.example.navinbangar.sampleweatherapplication.R
 import com.example.navinbangar.sampleweatherapplication.viewmodel.WeatherViewModel
@@ -28,31 +25,9 @@ class WeatherActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setUpDagger()
         setUpViewModel()
-        getLatitudeAndLongitude()
         setUpHourlyForecastBtnListener()
         setUpSixteenDaysForecastBtnListener()
 
-    }
-
-    private fun getLatitudeAndLongitude() {
-        // Create persistent LocationManager reference
-        locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
-        val locationListener: LocationListener = object : LocationListener {
-            override fun onLocationChanged(location: Location) {
-                latitude = location.latitude
-                longitude = location.longitude
-            }
-
-            override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
-            override fun onProviderEnabled(provider: String) {}
-            override fun onProviderDisabled(provider: String) {}
-        }
-        try {
-            // Request location updates
-            locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener)
-        } catch (ex: SecurityException) {
-            Log.d("myTag", "Security Exception, no location available")
-        }
     }
 
     private fun setUpDagger() {
