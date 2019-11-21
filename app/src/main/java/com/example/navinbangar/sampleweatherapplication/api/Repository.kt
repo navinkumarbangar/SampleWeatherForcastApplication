@@ -20,12 +20,12 @@ class Repository(val webservice: WeatherServiceApiInterface) {
             override fun onResponse(call: Call<WeatherCurrentDetail>, response: Response<WeatherCurrentDetail>) {
                 if (response.code() == success_code) {
                     val weatherForecastObj = response.body()
-                    currentWeatherLiveData.value = weatherForecastObj
+                    currentWeatherLiveData.postValue(weatherForecastObj)
                 }
             }
 
             override fun onFailure(call: Call<WeatherCurrentDetail>, t: Throwable) {
-                currentWeatherLiveData.value = null
+                currentWeatherLiveData.postValue(null)
             }
         })
 
@@ -72,9 +72,9 @@ class Repository(val webservice: WeatherServiceApiInterface) {
     companion object {
         var lat = "9.96"
         var lon = "76.25"
-        val unit = "metric"
-        val mode = "json"
-        val cnt = "16"
-        val success_code = 200
+        const val unit = "metric"
+        const val mode = "json"
+        const val cnt = "16"
+        const val success_code = 200
     }
 }
