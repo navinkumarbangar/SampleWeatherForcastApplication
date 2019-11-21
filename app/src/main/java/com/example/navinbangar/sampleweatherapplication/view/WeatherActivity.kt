@@ -143,7 +143,7 @@ class WeatherActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this@WeatherActivity)
         builder.setTitle("Information")
         builder.setMessage("Please Enter Valid City Name and Country")
-        builder.setPositiveButton("OK") { dialog, which ->
+        builder.setPositiveButton("OK") { dialog, _ ->
             dialog.dismiss()
         }
 
@@ -155,7 +155,7 @@ class WeatherActivity : AppCompatActivity() {
         return etCityName.text.isNotEmpty() && etCountryName.text.isNotEmpty()
     }
 
-    fun View.hideKeyboard() {
+    private fun View.hideKeyboard() {
         val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(windowToken, 0)
     }

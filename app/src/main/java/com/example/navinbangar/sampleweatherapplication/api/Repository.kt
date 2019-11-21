@@ -12,10 +12,10 @@ import retrofit2.Response
  * Created by Navin Bangar on 11/19/2019.
  */
 
-class Repository(val webservice: WeatherServiceApiInterface) {
+class Repository(private val webservice: WeatherServiceApiInterface) {
     ///Get weather forecast hourly
     fun getCurrentWeatherData(currentWeatherLiveData: MutableLiveData<WeatherCurrentDetail?>, cityName: String, countryName: String): MutableLiveData<WeatherCurrentDetail?> {
-        val call = webservice.getCurrentWeatherData(cityName + "," + countryName, com.example.navinbangar.sampleweatherapplication.helper.Helper.ForecastAppId)
+        val call = webservice.getCurrentWeatherData("$cityName,$countryName", com.example.navinbangar.sampleweatherapplication.helper.Helper.ForecastAppId)
         call.enqueue(object : Callback<WeatherCurrentDetail> {
             override fun onResponse(call: Call<WeatherCurrentDetail>, response: Response<WeatherCurrentDetail>) {
                 if (response.code() == success_code) {
@@ -54,7 +54,7 @@ class Repository(val webservice: WeatherServiceApiInterface) {
 
     //Get weather forecast for 16 days
     fun getSixteenDaysForecastData(sixteenDaysForeCastLiveData: MutableLiveData<WeatherForeCast?>, cityName: String, countryName: String): MutableLiveData<WeatherForeCast?> {
-        val call = webservice.getSixteenDaysForecastData(cityName + "," + countryName, com.example.navinbangar.sampleweatherapplication.helper.Helper.ForecastAppId, mode, unit, cnt)
+        val call = webservice.getSixteenDaysForecastData("$cityName,$countryName", com.example.navinbangar.sampleweatherapplication.helper.Helper.ForecastAppId, mode, unit, cnt)
         call.enqueue(object : Callback<WeatherForeCast> {
             override fun onResponse(call: Call<WeatherForeCast>, response: Response<WeatherForeCast>) {
                 if (response.code() == success_code) {
