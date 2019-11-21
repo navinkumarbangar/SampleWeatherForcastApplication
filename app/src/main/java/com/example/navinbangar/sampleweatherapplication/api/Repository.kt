@@ -12,7 +12,7 @@ import retrofit2.Response
  * Created by Navin Bangar on 11/19/2019.
  */
 
-class Repository(val webservice: WeatherServiceApiInterface) {
+open class Repository(val webservice: WeatherServiceApiInterface) {
     ///Get weather forecast hourly
     fun getCurrentWeatherData(currentWeatherLiveData: MutableLiveData<WeatherCurrentDetail?>, cityName: String, countryName: String): MutableLiveData<WeatherCurrentDetail?> {
         val call = webservice.getCurrentWeatherData(cityName + "," + countryName, com.example.navinbangar.sampleweatherapplication.helper.Helper.ForecastAppId)

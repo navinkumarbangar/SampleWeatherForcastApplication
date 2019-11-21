@@ -19,7 +19,7 @@ import kotlin.collections.ArrayList
  * Created by Navin Bangar on 11/19/2019.
  */
 
-class WeatherViewModel @Inject constructor(val weatherRepo: Repository) : ViewModel() {
+open class WeatherViewModel @Inject constructor(val weatherRepo: Repository) : ViewModel() {
     private val hourlyWeatherForecastDetailLiveData = MutableLiveData<WeatherDetailHourly?>()
     private val currentWeatherForecastDetailLiveData = MutableLiveData<WeatherCurrentDetail?>()
     private val sixteenDaysWeatherForecastDetailLiveData = MutableLiveData<WeatherForeCast?>()
