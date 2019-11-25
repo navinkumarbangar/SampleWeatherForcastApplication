@@ -10,6 +10,7 @@ android {
     }
     defaultConfig {
         applicationId "com.example.navinbangar.sampleweatherapplication"
+        flavorDimensions "default"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
@@ -18,10 +19,25 @@ android {
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    productFlavors{
+        free{
+            applicationId "com.example.navinbangar.sampleweatherapplication.free"
+        }
+        paid{
+            applicationId "com.example.navinbangar.sampleweatherapplication.paid"
+        }
+    }
+
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug{
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
         }
     }
 
@@ -38,6 +54,7 @@ android {
         jvmTarget = "1.8"
     }
 }
+
 kotlin {
     ext {
         okhttp3_version = '3.12.0'
@@ -45,7 +62,9 @@ kotlin {
         mp3chart_version = 'v2.2.4'
         dagger_version = '2.24'
         dagger_android_version='2.16'
+        mokito_version='2.8.9'
     }
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -56,6 +75,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     implementation "android.arch.lifecycle:extensions:1.1.1"
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
+
+    //Mockito
+    testCompile "org.mockito:mockito-core:$mokito_version"
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"

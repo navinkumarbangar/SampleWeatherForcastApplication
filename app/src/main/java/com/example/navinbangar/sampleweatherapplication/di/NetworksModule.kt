@@ -1,5 +1,7 @@
 package com.example.navinbangar.sampleweatherapplication.di
 
+import com.example.navinbangar.sampleweatherapplication.api.Repository
+import com.example.navinbangar.sampleweatherapplication.api.WeatherServiceApiInterface
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -28,5 +30,17 @@ class NetworksModule constructor( var urlPath: String){
                 .baseUrl(urlPath)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideWeatherWebService(restAdapter: Retrofit): WeatherServiceApiInterface {
+        return restAdapter.create(WeatherServiceApiInterface::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideWeatherRepository(webservice: WeatherServiceApiInterface): Repository {
+        return Repository(webservice)
     }
 }

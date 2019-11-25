@@ -5,4 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
+    <color name="sea_green_alt_color">#008484</color>
+    <color name="sea_green_alt_50">#50008484</color>
+    <color name="sea_green_alt_selected">#3D6C6E</color>
+    <color name="light_gray">#E9E9E9</color>
 </resources>

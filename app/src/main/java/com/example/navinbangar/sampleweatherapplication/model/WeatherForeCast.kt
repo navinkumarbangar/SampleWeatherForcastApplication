@@ -65,9 +65,9 @@ data class TempratureObj(@SerializedName("temp")
                          @SerializedName("grnd_level")
                 val grndLevel: Double = 0.0,
                          @SerializedName("temp_kf")
-                val tempKf: Int = 0,
+                         val tempKf: Double = 0.0,
                          @SerializedName("humidity")
-                val humidity: Int = 0,
+                         val humidity: Double = 0.0,
                          @SerializedName("pressure")
                 val pressure: Double = 0.0,
                          @SerializedName("sea_level")

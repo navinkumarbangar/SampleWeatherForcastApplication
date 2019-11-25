@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">WeatherForcastApp</string>
-    <string name="hourly_forcast">Show Hourly ForeCast</string>
-    <string name="sixteen_day_forcast">Show 16 days ForeCast</string>
-
+    <string name="hourly_forcast_btn_text">Show Hourly ForeCast</string>
+    <string name="sixteen_day_forcast_btn_text">Show 16 days ForeCast</string>
+    <string name="close_bn_text">Close App</string>
+    <string name="city_name_hint_text">Enter City Name</string>
+    <string name="country_name_hint_text">Enter Country Name</string>
+    <string name="get_current_weather_btn_text">Get Current Weather</string>
 </resources>
