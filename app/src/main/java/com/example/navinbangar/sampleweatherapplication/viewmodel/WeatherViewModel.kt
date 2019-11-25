@@ -34,6 +34,7 @@ class WeatherViewModel @Inject constructor(val weatherRepo: Repository) : ViewMo
     fun getCurrentWeatherLiveData(): MutableLiveData<WeatherCurrentDetail?> {
         return currentWeatherForecastDetailLiveData
     }
+
     fun getHourlyWeatherForeCastDetail(): MutableLiveData<WeatherDetailHourly?> {
         return weatherRepo.getHourlyForecastData(hourlyWeatherForecastDetailLiveData)
     }

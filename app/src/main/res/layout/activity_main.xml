@@ -16,8 +16,8 @@
             android:id="@+id/clShowWeatherForeCastDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/clShowWeatherButtons"
             android:layout_margin="@dimen/padding_margin_16"
+            app:layout_constraintBottom_toTopOf="@+id/clShowWeatherButtons"
             app:layout_constraintTop_toTopOf="parent">
 
             <android.support.constraint.ConstraintLayout
@@ -73,61 +73,61 @@
 
         </android.support.constraint.ConstraintLayout>
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/clShowWeatherButtons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_margin_8"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clShowWeatherForeCastDetails">
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/clShowWeatherButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_margin_8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clShowWeatherForeCastDetails">
+
+            <Button
+                android:id="@+id/btnGetCurrentWeather"
+                style="@style/button_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_margin_16"
+                android:background="@drawable/button_style_round_corner"
+                android:text="@string/get_current_weather_btn_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/btnShowHourlyForcast"
+                style="@style/button_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_margin_32"
+                android:background="@drawable/button_style_round_corner"
+                android:text="@string/hourly_forcast_btn_text"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnGetCurrentWeather" />
+
+            <Button
+                android:id="@+id/btnShowSixteenDaysForcast"
+                style="@style/button_style"
+                android:layout_margin="@dimen/padding_margin_16"
+                android:background="@drawable/button_style_round_corner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sixteen_day_forcast_btn_text"
+                android:textAllCaps="false"
+                app:layout_constraintTop_toBottomOf="@+id/btnShowHourlyForcast" />
+        </android.support.constraint.ConstraintLayout>
 
         <Button
-            android:id="@+id/btnGetCurrentWeather"
+            android:id="@+id/btnCloseApp"
             style="@style/button_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_margin_16"
+            android:layout_margin="@dimen/padding_margin_24"
             android:background="@drawable/button_style_round_corner"
-            android:text="@string/get_current_weather_btn_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/btnShowHourlyForcast"
-            style="@style/button_style"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_margin_32"
-            android:background="@drawable/button_style_round_corner"
-            android:text="@string/hourly_forcast_btn_text"
-            android:visibility="gone"
+            android:text="@string/close_bn_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnGetCurrentWeather" />
-
-        <Button
-            android:id="@+id/btnShowSixteenDaysForcast"
-            android:background="@drawable/button_style_round_corner"
-            style="@style/button_style"
-            android:text="@string/sixteen_day_forcast_btn_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_margin_16"
-            android:textAllCaps="false"
-            app:layout_constraintTop_toBottomOf="@+id/btnShowHourlyForcast" />
-    </android.support.constraint.ConstraintLayout>
-
-    <Button
-        android:id="@+id/btnCloseApp"
-        style="@style/button_style"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_margin_24"
-        android:background="@drawable/button_style_round_corner"
-        android:text="@string/close_bn_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clShowWeatherButtons" />
+            app:layout_constraintTop_toBottomOf="@+id/clShowWeatherButtons" />
     </android.support.constraint.ConstraintLayout>
 
 </ScrollView>
