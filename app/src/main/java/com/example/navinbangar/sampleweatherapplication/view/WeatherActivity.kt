@@ -13,6 +13,7 @@ import com.example.navinbangar.sampleweatherapplication.R
 import com.example.navinbangar.sampleweatherapplication.di.factory.ViewModelFactory
 import com.example.navinbangar.sampleweatherapplication.model.WeatherCurrentDetail
 import com.example.navinbangar.sampleweatherapplication.viewmodel.WeatherViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 

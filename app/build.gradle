@@ -45,6 +45,7 @@ kotlin {
         mp3chart_version = 'v2.2.4'
         dagger_version = '2.24'
         dagger_android_version='2.16'
+        mokito_version='2.8.9'
     }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -56,6 +57,10 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     implementation "android.arch.lifecycle:extensions:1.1.1"
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
+
+
+    //Mockito
+    testCompile "org.mockito:mockito-core:$mokito_version"
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
