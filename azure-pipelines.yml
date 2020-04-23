@@ -23,7 +23,7 @@ steps:
   inputs:
    apkFiles: 'outputs/apk/debug/*.apk'
    apksign: true
-   apksignerKeystoreFile: 'SampleWeatherForCastApplication.keystore'
+   apksignerKeystoreFile: 'SampleWeatherForCastApplication'
    apksignerKeystorePassword: 'SampleWeatherForCastApplication'
    apksignerKeystoreAlias: 'key0'
    apksignerKeyPassword: 'SampleWeatherForCastApplication'
