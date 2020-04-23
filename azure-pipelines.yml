@@ -24,7 +24,7 @@ steps:
    apkFiles: '**/*.apk'
    apksign: true
    apksignerKeystoreFile: 'production.keystore'
-   apksignerKeystorePassword: 'keystorepwd'
+   apksignerKeystorePassword: 'SampleWeatherForcastApplication'
    apksignerKeystoreAlias: 'key0'
    apksignerKeyPassword: 'SampleWeatherForcastApplication'
    apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/SampleWeatherForcastApplication.release.apk
