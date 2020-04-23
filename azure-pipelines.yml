@@ -21,7 +21,7 @@ steps:
 
 - task: AndroidSigning@3
   inputs:
-   apkFiles: 'outputs/apk/debug/*.apk'
+   apkFiles: '**/*.apk'
    apksign: true
    apksignerKeystoreFile: 'SampleWeatherForCastApplication.keystore'
    apksignerKeystorePassword: 'SampleWeatherForCastApplication'
