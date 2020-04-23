@@ -18,3 +18,14 @@ steps:
     publishJUnitResults: false
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'assembleRelease '
+
+- task: AndroidSigning@3
+ inputs:
+   apkFiles: '**/*.apk'
+   apksign: true
+   apksignerKeystoreFile: 'production.keystore'
+   apksignerKeystorePassword: 'keystorepwd'
+   apksignerKeystoreAlias: 'key0'
+   apksignerKeyPassword: 'SampleWeatherForcastApplication'
+   apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/SampleWeatherForcastApplication.release.apk
+   zipalign: true
