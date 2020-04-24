@@ -27,7 +27,7 @@ steps:
   inputs:
     apkFiles: '**/*.apk'
     apksign: true
-    apksignerKeystoreFile: '$(Build.SourcesDirectory)/app/keystore/SampleWeatherForCastApplication.keystore'
+    apksignerKeystoreFile: $(Build.SourcesDirectory)/app/keystore/SampleWeatherForCastApplication.keystore
     apksignerKeystorePassword: 'SampleWeatherForCastApplication'
     apksignerKeystoreAlias: 'key0'
     apksignerKeyPassword: 'SampleWeatherForCastApplication'
