@@ -13,7 +13,7 @@ pool:
 variables:
 - group: android-build-variables
 
-# Build  Android project in Debug mode with Gradle.
+# Build  Android project in Debug mode .
 steps:
 - task: Gradle@2
   inputs:
