@@ -1,0 +1,59 @@
+# Android
+
+# Add steps that test, sign, and distribute the APK, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/android
+
+trigger:
+- master
+- feature/*
+- develop
+
+pool:
+  vmImage: 'macOS-10.14'
+
+variables:
+- group: android-build-variables
+
+# Build  Android project in Debug mode with Gradle.
+steps:
+- task: Gradle@2
+  inputs:
+    workingDirectory: ''
+    gradleWrapperFile: 'gradlew'
+    checkStyleRunAnalysis: true
+    findBugsRunAnalysis: true
+    pmdRunAnalysis: true
+    publishJUnitResults: true
+    tasks: 'assembleDebug'
+
+#- task: AndroidSigning@3
+#  inputs:
+#    apkFiles: '**/*.apk'
+#    apksign: true
+#    apksignerKeystorePassword: $(keystore.password)
+#    apksignerKeystoreAlias: $(key.alias)
+#    apksignerKeyPassword: $(key.password)
+#    apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/SampleWeatherForCastApplication.apk
+#    zipalign: true
+
+#- task: Gradle@2
+#  inputs:
+#    workingDirectory: ''
+#    gradleWrapperFile: 'gradlew'
+#    publishJUnitResults: false
+#    tasks: 'assembleRelease'
+
+# Copies all apk files into artifact directory
+- task: CopyFiles@2
+  inputs:
+    contents: '**/*.apk'
+    targetFolder: '$(build.artifactStagingDirectory)'
+
+# Publish all apk files into artifact apk-file directory
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(build.artifactStagingDirectory)/app/build/outputs/'
+    artifactName: 'apk-files'
+    artifactType: 'container'
+
+
