@@ -5,9 +5,8 @@
 
 trigger:
 - master
-- feature/*
 - develop
-
+- weatherforcast_barchart_implementation
 pool:
   vmImage: 'macOS-10.14'
 
