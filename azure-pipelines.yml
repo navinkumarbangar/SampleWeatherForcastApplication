@@ -7,19 +7,13 @@ trigger:
 - master
 - develop
 - weatherforcast_barchart_implementation
-
-#Unless you specify pr triggers in your YAML file, pull request builds are automatically enabled for all branches
-#pr:
-#- master
-#- feature/*
-
 pool:
   vmImage: 'macOS-10.14'
 
 variables:
 - group: android-build-variables
 
-# Build  Android project in Debug mode .
+# Build  Android project in Debug mode with Gradle.
 steps:
 - task: Gradle@2
   inputs:
