@@ -7,6 +7,12 @@ trigger:
 - master
 - develop
 - weatherforcast_barchart_implementation
+
+#Unless you specify pr triggers in your YAML file, pull request builds are automatically enabled for all branches
+#pr:
+#- master
+#- feature/*
+
 pool:
   vmImage: 'macOS-10.14'
 
