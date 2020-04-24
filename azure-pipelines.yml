@@ -1,5 +1,5 @@
 # Android
-# Build your Android project with Gradle.
+
 # Add steps that test, sign, and distribute the APK, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/android
 
@@ -14,6 +14,7 @@ pool:
 variables:
 - group: android-build-variables
 
+# Build  Android project in Debug mode with Gradle.
 steps:
 - task: Gradle@2
   inputs:
@@ -25,35 +26,6 @@ steps:
     publishJUnitResults: true
     tasks: 'assembleDebug'
 
-#- task: Gradle@2
-#  inputs:
-#    workingDirectory: ''
-#    gradleWrapperFile: 'gradlew'
-#    publishJUnitResults: false
-#    tasks: 'assembleRelease'
-
-- task: CopyFiles@2
-  inputs:
-    contents: '**/*.apk'
-    targetFolder: '$(build.artifactStagingDirectory)'
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathToPublish: '$(build.artifactStagingDirectory)/app/build/outputs/'
-    artifactName: 'apk-files'
-    artifactType: 'container'
-#- task: Gradle@2
-#  inputs:
-#    workingDirectory: ''
-#    gradleWrapperFile: 'gradlew'
-#    gradleOptions: '-Xmx3072m'
-#    javaHomeOption: 'JDKVersion'
-#    jdkVersionOption: '1.8'
-#    jdkArchitectureOption: 'x64'
-#    publishJUnitResults: false
-#    testResultsFiles: '**/TEST-*.xml'
-#    tasks: 'assembleRelease'
-
 #- task: AndroidSigning@3
 #  inputs:
 #    apkFiles: '**/*.apk'
@@ -63,4 +35,25 @@ steps:
 #    apksignerKeyPassword: $(key.password)
 #    apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/SampleWeatherForCastApplication.apk
 #    zipalign: true
+
+#- task: Gradle@2
+#  inputs:
+#    workingDirectory: ''
+#    gradleWrapperFile: 'gradlew'
+#    publishJUnitResults: false
+#    tasks: 'assembleRelease'
+
+# Copies all apk files into artifact directory
+- task: CopyFiles@2
+  inputs:
+    contents: '**/*.apk'
+    targetFolder: '$(build.artifactStagingDirectory)'
+
+# Publish all apk files into artifact apk-file directory
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(build.artifactStagingDirectory)/app/build/outputs/'
+    artifactName: 'apk-files'
+    artifactType: 'container'
+
 
