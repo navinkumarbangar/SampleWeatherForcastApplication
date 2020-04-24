@@ -44,6 +44,6 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathtoPublish: '$(build.artifactstagingdirectory)/artifact'
+    pathtoPublish: '$(build.artifactstagingdirectory)/app/build/outputs/apk/release/'
     artifactName: 'apks'
     publishLocation: 'container'
