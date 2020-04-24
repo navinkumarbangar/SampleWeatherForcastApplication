@@ -10,7 +10,7 @@ pool:
   vmImage: 'macOS-10.14'
 
 steps:
-- task: Gradle@1
+- task: Gradle@2
   inputs:
     workingDirectory: ''
     gradleWrapperFile: 'gradlew'
@@ -22,7 +22,7 @@ steps:
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'assembleRelease'
 
-- task: DownloadSecureFile@2
+- task: DownloadSecureFile@1
   name: 'SampleWeatherForCastApplication' # The name with which to reference the secure file's path on the agent, like $(mySecureFile.secureFilePath)
   inputs:
     secureFile: 'SampleWeatherForCastApplication.keystore'
