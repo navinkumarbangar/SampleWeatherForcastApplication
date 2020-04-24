@@ -7,25 +7,16 @@ trigger:
 - master
 
 pool:
-  vmImage: 'macos-latest'
+  vmImage: 'macOS-10.13'
 
-steps:
 - task: Gradle@2
-  inputs:
-    workingDirectory: ''
-    gradleWrapperFile: 'gradlew'
-    gradleOptions: '-Xmx3072m'
-    publishJUnitResults: false
-    testResultsFiles: '**/TEST-*.xml'
-    tasks: 'assembleRelease'
-
-- task: AndroidSigning@3
-  inputs:
-   apkFiles: '**/*.apk'
-   apksign: true
-   apksignerKeystoreFile: 'SampleWeatherForCastApplication'
-   apksignerKeystorePassword: 'SampleWeatherForCastApplication'
-   apksignerKeystoreAlias: 'key0'
-   apksignerKeyPassword: 'SampleWeatherForCastApplication'
-   apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/SampleWeatherForCastApplication.release.apk
-   zipalign: true
+ inputs:
+   workingDirectory: ''
+   gradleWrapperFile: 'gradlew'
+   gradleOptions: '-Xmx3072m'
+   javaHomeOption: 'JDKVersion'
+   jdkVersionOption: '1.8'
+   jdkArchitectureOption: 'x64'
+   publishJUnitResults: false
+   testResultsFiles: '**/TEST-*.xml'
+   tasks: 'assembleRelease'
