@@ -18,3 +18,14 @@ steps:
     publishJUnitResults: false
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'assembleRelease'
+
+- task: AndroidSigning@3
+  inputs:
+    apkFiles: '**/*.apk'
+    apksign: true
+    apksignerKeystoreFile: 'SampleWeatherForCastApplication.keystore'
+    apksignerKeystorePassword: 'SampleWeatherForCastApplication'
+    apksignerKeystoreAlias: 'key0'
+    apksignerKeyPassword: 'SampleWeatherForCastApplication'
+    apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/my-crazy-app.release.apk
+    zipalign: true
