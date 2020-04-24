@@ -14,15 +14,30 @@ variables:
 
 steps:
 - task: Gradle@2
-  displayName: 'gradlew assembleDebug'
   inputs:
-    gradleWrapperFile: '$(Build.SourcesDirectory)/gradlew'
     workingDirectory: ''
-    tasks: assembleDebug
+    gradleWrapperFile: 'gradlew'
     publishJUnitResults: false
-    checkStyleRunAnalysis: true
-    findBugsRunAnalysis: true
-    pmdRunAnalysis: true
+    tasks: 'assembleDebug'
+
+- task: Gradle@2
+  inputs:
+    workingDirectory: ''
+    gradleWrapperFile: 'gradlew'
+    publishJUnitResults: false
+    tasks: 'assembleRelease'
+
+- task: CopyFiles@2
+  inputs:
+    contents: '**/*.apk'
+    targetFolder: '$(build.artifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(build.artifactStagingDirectory)/app/build/outputs/'
+    artifactName: 'apk-files'
+    artifactType: 'container'
+
 #- task: Gradle@2
 #  inputs:
 #    workingDirectory: ''
@@ -45,15 +60,3 @@ steps:
 #    apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/SampleWeatherForCastApplication.apk
 #    zipalign: true
 
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: $(Build.SourcesDirectory)
-    contents: '$(Build.SourcesDirectory)/app/build/output/apk/debug/app-debug.apk'
-    targetFolder: '$(build.artifactStagingDirectory)'
-    overWrite: true
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: 'apks'
-    publishLocation: 'container'
