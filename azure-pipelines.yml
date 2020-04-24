@@ -17,15 +17,18 @@ steps:
   inputs:
     workingDirectory: ''
     gradleWrapperFile: 'gradlew'
-    publishJUnitResults: false
+    checkStyleRunAnalysis: true
+    findBugsRunAnalysis: true
+    pmdRunAnalysis: true
+    publishJUnitResults: true
     tasks: 'assembleDebug'
 
-- task: Gradle@2
-  inputs:
-    workingDirectory: ''
-    gradleWrapperFile: 'gradlew'
-    publishJUnitResults: false
-    tasks: 'assembleRelease'
+#- task: Gradle@2
+#  inputs:
+#    workingDirectory: ''
+#    gradleWrapperFile: 'gradlew'
+#    publishJUnitResults: false
+#    tasks: 'assembleRelease'
 
 - task: CopyFiles@2
   inputs:
@@ -37,7 +40,6 @@ steps:
     pathToPublish: '$(build.artifactStagingDirectory)/app/build/outputs/'
     artifactName: 'apk-files'
     artifactType: 'container'
-
 #- task: Gradle@2
 #  inputs:
 #    workingDirectory: ''
