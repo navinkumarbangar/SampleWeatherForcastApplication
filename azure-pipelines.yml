@@ -22,16 +22,12 @@ steps:
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'assembleRelease'
 
-- task: DownloadSecureFile@1
-  displayName: 'Download SampleWeatherForCastApplication.keystore'
-  inputs:
-    secureFile: 'SampleWeatherForCastApplication.keystore'
 
 - task: AndroidSigning@3
   inputs:
     apkFiles: '**/*.apk'
     apksign: true
-    apksignerKeystoreFile: 'SampleWeatherForCastApplication.keystore'
+    apksignerKeystoreFile: '$(Build.SourcesDirectory)/app/keystore/SampleWeatherForCastApplication.keystore'
     apksignerKeystorePassword: 'SampleWeatherForCastApplication'
     apksignerKeystoreAlias: 'key0'
     apksignerKeyPassword: 'SampleWeatherForCastApplication'
