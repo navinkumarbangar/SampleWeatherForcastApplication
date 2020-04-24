@@ -7,8 +7,9 @@ trigger:
 - master
 
 pool:
-  vmImage: 'macOS-10.13'
+  vmImage: 'macos-latest'
 
+steps:
 - task: Gradle@2
   inputs:
    workingDirectory: ''
