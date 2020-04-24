@@ -25,12 +25,25 @@ steps:
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'assembleRelease'
 
-- task: AndroidSigning@3
+#- task: AndroidSigning@3
+#  inputs:
+#    apkFiles: '**/*.apk'
+#    apksign: true
+#    apksignerKeystorePassword: $(keystore.password)
+#    apksignerKeystoreAlias: $(key.alias)
+#    apksignerKeyPassword: $(key.password)
+#    apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/SampleWeatherForCastApplication.apk
+#    zipalign: true
+
+- task: CopyFiles@2
   inputs:
-    apkFiles: '**/*.apk'
-    apksign: true
-    apksignerKeystorePassword: $(keystore.password)
-    apksignerKeystoreAlias: $(key.alias)
-    apksignerKeyPassword: $(key.password)
-    apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/SampleWeatherForCastApplication.apk
-    zipalign: true
+    SourceFolder: $(Build.SourcesDirectory)
+    contents: '**/*.release.apk'
+    targetFolder: '$(build.artifactStagingDirectory)'
+    overWrite: true
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)/app/build/outputs/apk/release/'
+    artifactName: 'apks'
+    publishLocation: 'container'
