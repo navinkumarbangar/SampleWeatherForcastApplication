@@ -23,7 +23,7 @@ steps:
     tasks: 'assembleRelease'
 
 - task: DownloadSecureFile@1
-  name: 'SampleWeatherForCastApplication.keystore' # The name with which to reference the secure file's path on the agent, like $(mySecureFile.secureFilePath)
+  name: 'SampleWeatherForCastApplication' # The name with which to reference the secure file's path on the agent, like $(mySecureFile.secureFilePath)
   inputs:
     secureFile: 'SampleWeatherForCastApplication.keystore'
 
@@ -31,7 +31,7 @@ steps:
   inputs:
     apkFiles: '**/*.apk'
     apksign: true
-    apksignerKeystoreFile: '$(SampleWeatherForCastApplication.keystore.secureFilePath)'
+    apksignerKeystoreFile: '$(SampleWeatherForCastApplication.secureFilePath)'
     apksignerKeystorePassword: 'SampleWeatherForCastApplication'
     apksignerKeystoreAlias: 'key0'
     apksignerKeyPassword: 'SampleWeatherForCastApplication'
