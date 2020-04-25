@@ -51,6 +51,7 @@ steps:
     publishJUnitResults: false
     tasks: 'assembleRelease'
 
+# sign Android apk
 - task: AndroidSigning@2
   inputs:
     apkFiles: '**/*.apk'
