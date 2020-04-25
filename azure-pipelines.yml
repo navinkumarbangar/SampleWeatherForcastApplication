@@ -40,6 +40,19 @@ steps:
     publishJUnitResults: true
     tasks: 'assembleDebug'
 
+- task: Gradle@2
+  inputs:
+    workingDirectory: ''
+    gradleWrapperFile: 'gradlew'
+    gradleOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/TEST-*.xml'
+    tasks: 'assembleDebug test'
+  displayName: gradlew assembleDebug test
+
 # Build  Android project in Release mode with Gradle.
 #- task: Gradle@2
 #  inputs:
