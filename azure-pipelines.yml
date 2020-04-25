@@ -19,16 +19,28 @@ pool:
 variables:
 - group: android-build-variables
 
-# Build  Android project in Debug mode with Gradle.
-steps:
-- task: VersionAssemblies@2
-  inputs:
-    sourcePath: '$(Build.SourcesDirectory)/app/manifests'
-    versionCode: 1
-    versionCodeOffset: '1'
-    versionName: 'SampleWeatherForcastApp'
-    printFile: true
 
+steps:
+#- task: VersionAssemblies@2
+#  inputs:
+#    sourcePath: '$(Build.SourcesDirectory)/app/manifests'
+#    versionCode: 1
+#    versionCodeOffset: '1'
+#    versionName: 'SampleWeatherForcastApp'
+#    printFile: true
+
+# Build  Android project in Debug mode with Gradle.
+#- task: Gradle@2
+#  inputs:
+#    workingDirectory: ''
+#    gradleWrapperFile: 'gradlew'
+#    checkStyleRunAnalysis: true
+#    findBugsRunAnalysis: true
+#    pmdRunAnalysis: true
+#    publishJUnitResults: true
+#    tasks: 'assembleDebug'
+
+# Build  Android project in Release mode with Gradle.
 - task: Gradle@2
   inputs:
     workingDirectory: ''
@@ -36,8 +48,18 @@ steps:
     checkStyleRunAnalysis: true
     findBugsRunAnalysis: true
     pmdRunAnalysis: true
-    publishJUnitResults: true
-    tasks: 'assembleDebug'
+    publishJUnitResults: false
+    tasks: 'assembleRelease'
+
+    - task: AndroidSigning@2
+      inputs:
+        apkFiles: '**/*.apk'
+        jarsign: true
+        jarsignerKeystoreFile: SampleWeatherForCastApplication.jks
+        jarsignerKeystorePassword: $(keystore.password)
+        jarsignerKeystoreAlias: $(key.alias)
+        jarsignerKeyPassword: $(keystore.password)
+        zipalign: true
 
 #- task: AndroidSigning@3
 #  inputs:
@@ -48,13 +70,6 @@ steps:
 #    apksignerKeyPassword: $(key.password)
 #    apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/SampleWeatherForCastApplication.apk
 #    zipalign: true
-
-#- task: Gradle@2
-#  inputs:
-#    workingDirectory: ''
-#    gradleWrapperFile: 'gradlew'
-#    publishJUnitResults: false
-#    tasks: 'assembleRelease'
 
 # Copies all apk files into artifact directory
 - task: CopyFiles@2
