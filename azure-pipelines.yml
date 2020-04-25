@@ -52,7 +52,7 @@ steps:
     tasks: 'assembleRelease'
 
  - task: AndroidSigning@2
-  inputs:
+   inputs:
     apkFiles: '**/*.apk'
     jarsign: true
     jarsignerKeystoreFile: SampleWeatherForCastApplication.jks
