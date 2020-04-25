@@ -51,8 +51,8 @@ steps:
     publishJUnitResults: false
     tasks: 'assembleRelease'
 
- - task: AndroidSigning@2
-   inputs:
+- task: AndroidSigning@2
+  inputs:
     apkFiles: '**/*.apk'
     jarsign: true
     jarsignerKeystoreFile: SampleWeatherForCastApplication.jks
