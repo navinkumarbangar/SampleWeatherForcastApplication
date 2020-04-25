@@ -51,15 +51,15 @@ steps:
     publishJUnitResults: false
     tasks: 'assembleRelease'
 
-    - task: AndroidSigning@2
-      inputs:
-        apkFiles: '**/*.apk'
-        jarsign: true
-        jarsignerKeystoreFile: SampleWeatherForCastApplication.jks
-        jarsignerKeystorePassword: $(keystore.password)
-        jarsignerKeystoreAlias: $(key.alias)
-        jarsignerKeyPassword: $(keystore.password)
-        zipalign: true
+ - task: AndroidSigning@2
+  inputs:
+    apkFiles: '**/*.apk'
+    jarsign: true
+    jarsignerKeystoreFile: SampleWeatherForCastApplication.jks
+    jarsignerKeystorePassword: $(keystore.password)
+    jarsignerKeystoreAlias: $(key.alias)
+    jarsignerKeyPassword: $(keystore.password)
+    zipalign: true
 
 #- task: AndroidSigning@3
 #  inputs:
