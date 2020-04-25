@@ -19,6 +19,7 @@ pool:
 variables:
 - group: android-build-variables
 
+# Build  Android project in Debug mode with Gradle.
 steps:
 - task: VersionAssemblies@2
   inputs:
@@ -28,8 +29,6 @@ steps:
     versionName: 'SampleWeatherForcastApp'
     printFile: true
 
-# Build  Android project in Debug mode with Gradle.
-steps:
 - task: Gradle@2
   inputs:
     workingDirectory: ''
