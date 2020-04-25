@@ -56,7 +56,7 @@ steps:
   inputs:
     apkFiles: '**/*.apk'
     apksign: true
-    apksignerKeystoreFile: SampleWeatherForCastApplication.jks
+    apksignerKeystoreFile: SampleWeatherKeyStore.jks
     apksignerKeystorePassword: $(keystore.password)
     apksignerKeystoreAlias: $(key.alias)
     apksignerKeyPassword: $(key.password)
