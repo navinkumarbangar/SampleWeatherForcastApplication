@@ -30,17 +30,6 @@ steps:
 #    printFile: true
 
 # Build  Android project in Debug mode with Gradle.
-#- task: Gradle@2
-#  inputs:
-#    workingDirectory: ''
-#    gradleWrapperFile: 'gradlew'
-#    checkStyleRunAnalysis: true
-#    findBugsRunAnalysis: true
-#    pmdRunAnalysis: true
-#    publishJUnitResults: true
-#    tasks: 'assembleDebug'
-
-# Build  Android project in Release mode with Gradle.
 - task: Gradle@2
   inputs:
     workingDirectory: ''
@@ -48,20 +37,31 @@ steps:
     checkStyleRunAnalysis: true
     findBugsRunAnalysis: true
     pmdRunAnalysis: true
-    publishJUnitResults: false
-    tasks: 'assembleRelease'
+    publishJUnitResults: true
+    tasks: 'assembleDebug'
 
-# sign Android apk
-- task: AndroidSigning@3
-  inputs:
-    apkFiles: '**/*.apk'
-    apksign: true
-    apksignerKeystoreFile: SampleWeatherKeyStore.jks
-    apksignerKeystorePassword: $(keystore.password)
-    apksignerKeystoreAlias: $(key.alias)
-    apksignerKeyPassword: $(key.password)
-    apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/SampleWeatherForCastApplication.apk
-    zipalign: true
+# Build  Android project in Release mode with Gradle.
+#- task: Gradle@2
+#  inputs:
+#    workingDirectory: ''
+#    gradleWrapperFile: 'gradlew'
+#    checkStyleRunAnalysis: true
+#    findBugsRunAnalysis: true
+#    pmdRunAnalysis: true
+#    publishJUnitResults: false
+#    tasks: 'assembleRelease'
+
+## sign Android apk
+#- task: AndroidSigning@3
+#  inputs:
+#    apkFiles: '**/*.apk'
+#    apksign: true
+#    apksignerKeystoreFile: SampleWeatherKeyStore.jks
+#    apksignerKeystorePassword: $(keystore.password)
+#    apksignerKeystoreAlias: $(key.alias)
+#    apksignerKeyPassword: $(key.password)
+#    apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/SampleWeatherForCastApplication.apk
+#    zipalign: true
 
 # Copies all apk files into artifact directory
 - task: CopyFiles@2
