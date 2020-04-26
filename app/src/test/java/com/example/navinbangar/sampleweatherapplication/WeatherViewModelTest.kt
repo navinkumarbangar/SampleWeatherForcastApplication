@@ -27,13 +27,9 @@ class WeatherViewModelTest {
     }
 
     @Test
-    fun testNotNull() {
+    fun testNull() {
         assertThat(weatherViewModelTest.weatherRepo, notNullValue())
     }
 
-    @Test
-    fun testNull() {
-        assertThat(weatherViewModelTest.weatherRepo, null)
-    }
 
 }
