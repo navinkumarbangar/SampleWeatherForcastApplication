@@ -38,7 +38,7 @@ steps:
     findBugsRunAnalysis: true
     pmdRunAnalysis: true
     publishJUnitResults: true
-    tasks: 'assembleDebug'
+    tasks: 'assembleRelease'
 
 - task: Gradle@2
   inputs:
@@ -51,7 +51,7 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'assembleDebug test'
-  displayName: gradlew assembleDebug test
+  displayName: gradlew assembleRelease test
 
 # Build  Android project in Release mode with Gradle.
 #- task: Gradle@2
