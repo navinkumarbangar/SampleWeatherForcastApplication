@@ -39,18 +39,6 @@ steps:
     publishJUnitResults: true
     tasks: 'assembleRelease'
 
-- task: Cache@2
-  inputs:
-    key: 'gradle | "$(Agent.OS)"'
-    restoreKeys: gradle
-    path: $(Pipeline.Workspace)/.gradle
-    displayName: Gradle build cache
-
-- script: |
-        ./gradlew --build-cache build
-        ./gradlew --stop
-  displayName: Cache Gradle
-
 - task: Gradle@2
   inputs:
     workingDirectory: ''
