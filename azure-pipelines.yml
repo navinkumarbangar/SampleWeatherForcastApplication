@@ -46,10 +46,10 @@ steps:
     path: $(GRADLE_USER_HOME)
     displayName: Gradle build cache
 
-    - script: |
+- script: |
         ./gradlew --build-cache build
         ./gradlew --stop
-      displayName: Cache Gradle
+  displayName: Cache Gradle
 
 - task: Gradle@2
   inputs:
