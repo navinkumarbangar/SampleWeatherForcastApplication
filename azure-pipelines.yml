@@ -18,7 +18,7 @@ pool:
 
 variables:
 - group: android-build-variables
-
+GRADLE_CACHE_FOLDER: $(Pipeline.Workspace)/.gradle
 
 steps:
 #- task: VersionAssemblies@2
@@ -40,6 +40,15 @@ steps:
     publishJUnitResults: true
     tasks: 'assembleRelease'
 
+- task: Cache@2
+  inputs:
+    key: 'gradle | "$(Agent.OS)" | gradle.lock'
+    restoreKeys: |
+      gradle | "$(Agent.OS)"
+      gradle
+    path: $(GRADLE_CACHE_FOLDER)
+    displayName: Cache Yarn packages
+
 - task: Gradle@2
   inputs:
     workingDirectory: ''
@@ -53,7 +62,9 @@ steps:
     tasks: 'assembleRelease test'
   displayName: gradlew assembleRelease test
 
-# Build  Android project in Release mode with Gradle.
+
+
+  # Build  Android project in Release mode with Gradle.
 #- task: Gradle@2
 #  inputs:
 #    workingDirectory: ''
@@ -65,16 +76,16 @@ steps:
 #    tasks: 'assembleRelease'
 
 ## sign Android apk
-- task: AndroidSigning@3
-  inputs:
-    apkFiles: '**/*.apk'
-    apksign: true
-    apksignerKeystoreFile: SampleWeatherKeyStore.jks
-    apksignerKeystorePassword: $(keystore.password)
-    apksignerKeystoreAlias: $(key.alias)
-    apksignerKeyPassword: $(key.password)
-    apksignerArguments: --out '**/*.apk'
-    zipalign: true
+  #- task: AndroidSigning@3
+  #  inputs:
+  #    apkFiles: '**/*.apk'
+  #    apksign: true
+  #    apksignerKeystoreFile: SampleWeatherKeyStore.jks
+  #    apksignerKeystorePassword: $(keystore.password)
+  #    apksignerKeystoreAlias: $(key.alias)
+  #    apksignerKeyPassword: $(key.password)
+  #    apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/SampleWeatherForCastApplication.apk
+  #    zipalign: true
 
 # Copies all apk files into artifact directory
 - task: CopyFiles@2
