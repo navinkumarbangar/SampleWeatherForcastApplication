@@ -71,10 +71,10 @@ steps:
     apkFiles: '**/*.apk'
     apksign: true
     apksignerKeystoreFile: SampleWeatherKeyStore.jks
-    apksignerKeystorePassword: $(keystore.password)
-    apksignerKeystoreAlias: $(key.alias)
-    apksignerKeyPassword: $(key.password)
-    apksignerArguments: --out **/*.apk --verbose --pass-encoding utf-8
+    apksignerKeystorePassword: 'SampleWeatherKeyStore'
+    apksignerKeystoreAlias: 'key0'
+    apksignerKeyPassword: 'SampleWeatherKeyStore'
+    apksignerArguments: --out **/*.apk
     zipalign: true
 
 # Copies all apk files into artifact directory
