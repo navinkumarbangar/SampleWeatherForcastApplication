@@ -18,7 +18,7 @@ pool:
 
 variables:
 - group: android-build-variables
-GRADLE_CACHE_FOLDER: $(Pipeline.Workspace)/.gradle
+- GRADLE_CACHE_FOLDER: $(Pipeline.Workspace)/.gradle
 
 steps:
 #- task: VersionAssemblies@2
