@@ -74,8 +74,9 @@ steps:
     apksignerKeystorePassword: 'SampleWeatherKeyStore'
     apksignerKeystoreAlias: 'key0'
     apksignerKeyPassword: 'SampleWeatherKeyStore'
-    apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/SampleWeatherForCastApplication.apk
+    apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/**.apk
     zipalign: true
+    displayName: App align and signing task
 
 # Copies all apk files into artifact directory
 - task: CopyFiles@2
