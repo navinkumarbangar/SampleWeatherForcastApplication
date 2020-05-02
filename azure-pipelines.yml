@@ -71,10 +71,10 @@ steps:
     apkFiles: '**/*.apk'
     apksign: true
     apksignerKeystoreFile: SampleWeatherKeyStore.jks
-    apksignerKeystorePassword: 'SampleWeatherKeyStore'
-    apksignerKeystoreAlias: 'key0'
-    apksignerKeyPassword: 'SampleWeatherKeyStore'
-    apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/**.apk
+    apksignerKeystorePassword: $(keystorePassword)
+    apksignerKeystoreAlias: $(keyAlias)
+    apksignerKeyPassword: $(keyPassword)
+    apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk
     zipalign: true
     displayName: App align and signing task
 
