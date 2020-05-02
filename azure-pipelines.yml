@@ -91,4 +91,27 @@ steps:
     artifactName: 'apk-files'
     artifactType: 'container'
 
+  #  # Run tests using the App Center CLI
+  ##- script: appcenter test run espresso --app "{APP_CENTER_SLUG}" --devices "{DEVICE}" --app-path {APP_FILE} --test-series "master" --locale "en_US" --build-dir {PAT_ESPRESSO} --debug
+  #
+  #  # Distribute the app
+  #- task: AppCenterDistribute@3
+  #  inputs:
+  #    serverEndpoint: 'AppCenter'
+  #    appSlug: '$(APP_CENTER_SLUG)'
+  #    appFile: '$(APP_FILE)' # Relative path from the repo root to the APK or IPA file you want to publish
+  #    symbolsOption: 'Android'
+  #    releaseNotesOption: 'input'
+  #    releaseNotesInput: 'Here are the release notes for this version.'
+  #    destinationType: 'groups'
 
+- task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@4
+  displayName: 'Prepare analysis on SonarQube'
+  inputs:
+    SonarQube: 'SonarCloud'
+    projectKey: 'SampleWeatherForcast'
+    projectName: SampleWeatherForcast
+    projectVersion: 'assembleRelease'
+    extraProperties: |
+      sonar.organization=naveenbangar27
+      sonar.branch.name=weatherforcast_barchart_implementation
