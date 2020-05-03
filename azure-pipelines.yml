@@ -104,7 +104,6 @@ steps:
     destinationGroupIds: '6c2f931d-d656-4190-b475-0f9f7fcf9da2'
 
 - task: AppCenterTest@1
-    displayName: 'Espresso Test '
     inputs:
       appFile: '$(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk'
       artifactsDirectory: '$(Build.ArtifactStagingDirectory)/AppCenterTest'
@@ -113,6 +112,7 @@ steps:
       serverEndpoint: 'SampleWeatherForcastApplicationAppCenter'
       appSlug: 'naveen.bangar27-gmail.com/SampleWeatherApp'
       devices: a84c93af
+      displayName: 'Espresso Test '
 
 #- task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@4
 #  displayName: 'Prepare analysis on SonarQube'
