@@ -91,10 +91,6 @@ steps:
     artifactName: 'apk-files'
     artifactType: 'container'
 
-  #  # Run tests using the App Center CLI
-- script: appcenter login --token "2ad7114aeaff164032483269f79bcc3b900ae9fc"
-- script: appcenter test run espresso --app "naveen.bangar27-gmail.com/SampleWeatherApp" --devices "MotoOneVision" --app-path $(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk --test-series "master" --locale "en_US" --debug
-
   #Distribute the app on App center
 - task: AppCenterDistribute@3
   inputs:
@@ -106,6 +102,17 @@ steps:
     releaseNotesInput: 'SampleWeatherApp First version.'
     destinationType: 'groups'
     destinationGroupIds: '6c2f931d-d656-4190-b475-0f9f7fcf9da2'
+
+- task: AppCenterTest@1
+    displayName: 'Espresso Test '
+    inputs:
+      appFile: '$(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk'
+      artifactsDirectory: '$(Build.ArtifactStagingDirectory)/AppCenterTest'
+      frameworkOption: espresso
+      espressoBuildDirectory: Espresso
+      serverEndpoint: 'SampleWeatherForcastApplicationAppCenter'
+      appSlug: 'naveen.bangar27-gmail.com/SampleWeatherApp'
+      devices: a84c93af
 
 #- task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@4
 #  displayName: 'Prepare analysis on SonarQube'
