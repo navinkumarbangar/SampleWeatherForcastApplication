@@ -93,7 +93,7 @@ steps:
 
   #  # Run tests using the App Center CLI
 - script: appcenter login --token "2ad7114aeaff164032483269f79bcc3b900ae9fc"
-- script: appcenter test run espresso --app "naveen.bangar27-gmail.com/SampleWeatherApp" --devices "MotoOneVision" --app-path $(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk --test-series "master" --locale "en_US" --build-dir $(Build.SourcesDirectory)/app/build --debug
+- script: appcenter test run espresso --app "naveen.bangar27-gmail.com/SampleWeatherApp" --devices "MotoOneVision" --app-path $(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk --test-series "master" --locale "en_US" --build-dir $(build.artifactStagingDirectory)/app/build/outputs/SampleWeatherApp.apk --debug
 
   #Distribute the app on App center
 - task: AppCenterDistribute@3
