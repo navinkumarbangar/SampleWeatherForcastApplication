@@ -97,7 +97,7 @@ steps:
   #  # Distribute the app
 - task: AppCenterDistribute@3
   inputs:
-    serverEndpoint: 'SampleWeatherAppCenter'
+    serverEndpoint: 'SampleWeatherForcastApplicationAppCenter'
     appSlug: 'naveen.bangar27-gmail.com/SampleWeatherApp'
     appFile: '$(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk' # Relative path from the repo root to the APK or IPA file you want to publish
     symbolsOption: 'Android'
