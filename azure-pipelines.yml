@@ -99,7 +99,7 @@ steps:
   inputs:
     serverEndpoint: 'SampleWeatherAppCenter'
     appSlug: 'naveen.bangar27-gmail.com/SampleWeatherApp'
-    appFile: '$(build.artifactStagingDirectory)/app/build/outputs/apk-files/SampleWeatherApp.apk' # Relative path from the repo root to the APK or IPA file you want to publish
+    appFile: '#/8229778/apk-files/SampleWeatherApp.apk' # Relative path from the repo root to the APK or IPA file you want to publish
     symbolsOption: 'Android'
     releaseNotesOption: 'input'
     releaseNotesInput: 'SampleWeatherApp First version.'
