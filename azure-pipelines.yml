@@ -51,17 +51,17 @@ steps:
       tasks: 'assembleRelease'
 
   - task: Gradle@2
-  inputs:
-    workingDirectory: ''
-    gradleWrapperFile: 'gradlew'
-    gradleOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/TEST-*.xml'
-    tasks: 'assembleRelease test'
-    displayName: gradlew assembleRelease test
+    inputs:
+      workingDirectory: ''
+      gradleWrapperFile: 'gradlew'
+      gradleOptions: '-Xmx3072m'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.8'
+      jdkArchitectureOption: 'x64'
+      publishJUnitResults: true
+      testResultsFiles: '**/TEST-*.xml'
+      tasks: 'assembleRelease test'
+      displayName: gradlew assembleRelease test
 
   - task: SonarCloudPublish@1
     inputs:
@@ -79,42 +79,42 @@ steps:
 #    tasks: 'assembleRelease'
 
 ## sign Android apk
-- task: AndroidSigning@3
-  inputs:
-    apkFiles: '**/*.apk'
-    apksign: true
-    apksignerKeystoreFile: SampleWeatherKeyStore.jks
-    apksignerKeystorePassword: $(keystorePassword)
-    apksignerKeystoreAlias: $(keyAlias)
-    apksignerKeyPassword: $(keyPassword)
-    apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk
-    zipalign: true
-    displayName: App align and signing task
+  - task: AndroidSigning@3
+    inputs:
+      apkFiles: '**/*.apk'
+      apksign: true
+      apksignerKeystoreFile: SampleWeatherKeyStore.jks
+      apksignerKeystorePassword: $(keystorePassword)
+      apksignerKeystoreAlias: $(keyAlias)
+      apksignerKeyPassword: $(keyPassword)
+      apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk
+      zipalign: true
+      displayName: App align and signing task
 
 # Copies all apk files into artifact directory
-- task: CopyFiles@2
-  inputs:
-    contents: '**/*.apk'
-    targetFolder: '$(build.artifactStagingDirectory)'
+  - task: CopyFiles@2
+    inputs:
+      contents: '**/*.apk'
+      targetFolder: '$(build.artifactStagingDirectory)'
 
 # Publish all apk files into artifact apk-file directory
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathToPublish: '$(build.artifactStagingDirectory)/app/build/outputs/'
-    artifactName: 'apk-files'
-    artifactType: 'container'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: '$(build.artifactStagingDirectory)/app/build/outputs/'
+      artifactName: 'apk-files'
+      artifactType: 'container'
 
   #Distribute the app on App center
-- task: AppCenterDistribute@3
-  inputs:
-    serverEndpoint: 'SampleWeatherForcastApplicationAppCenter'
-    appSlug: 'naveen.bangar27-gmail.com/SampleWeatherApp'
-    appFile: '$(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk' # Relative path from the repo root to the APK or IPA file you want to publish
-    symbolsOption: 'Android'
-    releaseNotesOption: 'input'
-    releaseNotesInput: 'SampleWeatherApp First version.'
-    destinationType: 'groups'
-    destinationGroupIds: '6c2f931d-d656-4190-b475-0f9f7fcf9da2'
+  - task: AppCenterDistribute@3
+    inputs:
+      serverEndpoint: 'SampleWeatherForcastApplicationAppCenter'
+      appSlug: 'naveen.bangar27-gmail.com/SampleWeatherApp'
+      appFile: '$(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk' # Relative path from the repo root to the APK or IPA file you want to publish
+      symbolsOption: 'Android'
+      releaseNotesOption: 'input'
+      releaseNotesInput: 'SampleWeatherApp First version.'
+      destinationType: 'groups'
+      destinationGroupIds: '6c2f931d-d656-4190-b475-0f9f7fcf9da2'
 
 #- task: SonarQubePrepare@4
 #  inputs:
