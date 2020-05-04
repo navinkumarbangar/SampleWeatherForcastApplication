@@ -101,15 +101,15 @@ steps:
     destinationType: 'groups'
     destinationGroupIds: '6c2f931d-d656-4190-b475-0f9f7fcf9da2'
 
-- task: SonarQubePrepare@4
-  inputs:
-    SonarQube: 'SampleWeatherAppSonar'
-    projectKey: 'SampleWeatherForcast'
-    projectName: 'SampleWeatherForcast'
-    projectVersion: 'assembleRelease'
-    extraProperties: |
-      sonar.organization=naveenbangar27
-      sonar.branch.name=weatherforcast_barchart_implementation
+#- task: SonarQubePrepare@4
+#  inputs:
+#    SonarQube: 'SampleWeatherAppSonar'
+#    projectKey: 'SampleWeatherForcast'
+#    projectName: 'SampleWeatherForcast'
+#    projectVersion: 'assembleRelease'
+#    extraProperties: |
+#      sonar.organization=naveenbangar27
+#      sonar.branch.name=weatherforcast_barchart_implementation
 
 - task: SonarQubePrepare@4
   inputs:
