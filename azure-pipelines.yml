@@ -103,13 +103,13 @@ steps:
     destinationType: 'groups'
     destinationGroupIds: '6c2f931d-d656-4190-b475-0f9f7fcf9da2'
 
-#- task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@4
-#  displayName: 'Prepare analysis on SonarQube'
-#  inputs:
-#    SonarQube: 'SonarCloud'
-#    projectKey: 'SampleWeatherForcast'
-#    projectName: 'SampleWeatherForcast'
-#    projectVersion: 'assembleRelease'
-#    extraProperties: |
-#      sonar.organization=naveenbangar27
-#      sonar.branch.name=weatherforcast_barchart_implementation
+- task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@4
+  inputs:
+    SonarQube: 'SonarQube'
+    projectKey: 'SampleWeatherForcast'
+    projectName: 'SampleWeatherForcast'
+    projectVersion: 'assembleRelease'
+    displayName: 'Prepare analysis on SonarQube'
+    extraProperties: |
+      sonar.organization=naveenbangar27
+      sonar.branch.name=weatherforcast_barchart_implementation
