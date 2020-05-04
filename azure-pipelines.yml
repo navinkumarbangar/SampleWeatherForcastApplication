@@ -101,7 +101,7 @@ steps:
     destinationType: 'groups'
     destinationGroupIds: '6c2f931d-d656-4190-b475-0f9f7fcf9da2'
 
-- task: SonarSource.sonarqube.SonarQubePrepare@4
+- task: SonarQubePrepare@4
   inputs:
     SonarQube: 'SampleWeatherAppSonar'
     projectKey: 'SampleWeatherForcast'
