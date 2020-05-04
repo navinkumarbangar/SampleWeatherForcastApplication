@@ -45,9 +45,6 @@ steps:
       findBugsRunAnalysis: true
       pmdRunAnalysis: true
       publishJUnitResults: true
-      sonarQubeRunAnalysis: true
-      sqGradlePluginVersionChoice: 'specify'
-      sonarQubeGradlePluginVersion: '2.8'
       tasks: 'assembleRelease'
 
   - task: SonarCloudPublish@1
