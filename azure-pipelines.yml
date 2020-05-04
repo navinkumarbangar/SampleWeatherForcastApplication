@@ -25,8 +25,20 @@ steps:
 #    versionCodeOffset: '1'
 #    versionName: 'SampleWeatherForcastApp'
 #    printFile: true
+  - task: SonarCloudPrepare@1
+      inputs:
+        SonarCloud: 'SonarCloud'
+        organization: 'sonarsource'
+        scannerMode: 'Other'
+        extraProperties: |
+          # Additional properties that will be passed to the scanner,
+          # Put one key=value per line, example:
+          sonar.exclusions=**/*.bin
+          sonar.projectName=SampleWeatherForcast
+          sonar.projectKey=SampleWeatherForcast
+          sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
 
-# Build  Android project in Debug mode with Gradle.
+  # Build Task- Android project build with Gradle.
 - task: Gradle@2
   inputs:
     workingDirectory: ''
@@ -35,6 +47,9 @@ steps:
     findBugsRunAnalysis: true
     pmdRunAnalysis: true
     publishJUnitResults: true
+    sonarQubeRunAnalysis: true
+    sqGradlePluginVersionChoice: 'specify'
+    sonarQubeGradlePluginVersion: '2.8'
     tasks: 'assembleRelease'
 
 - task: Gradle@2
@@ -48,9 +63,11 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'assembleRelease test'
-  displayName: gradlew assembleRelease test
+    displayName: gradlew assembleRelease test
 
-
+  - task: SonarCloudPublish@1
+    inputs:
+      pollingTimeoutSec: '300'
 
   # Build  Android project in Release mode with Gradle.
 #- task: Gradle@2
@@ -107,17 +124,7 @@ steps:
 #    projectKey: 'SampleWeatherForcast'
 #    projectName: 'SampleWeatherForcast'
 #    projectVersion: 'assembleRelease'
+#    displayName: 'Prepare analysis on SonarQube'
 #    extraProperties: |
 #      sonar.organization=naveenbangar27
 #      sonar.branch.name=weatherforcast_barchart_implementation
-
-- task: SonarQubePrepare@4
-  inputs:
-   SonarQube: 'SampleWeatherAppSonar'
-   scannerMode: 'Other'
-
-- task: SonarQubePublish@4
-  inputs:
-    pollingTimeoutSec: '300'
-
-- task: SonarQubeAnalyze@4
