@@ -37,20 +37,20 @@ steps:
           sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
 
   # Build Task- Android project build with Gradle.
-- task: Gradle@2
-  inputs:
-    workingDirectory: ''
-    gradleWrapperFile: 'gradlew'
-    checkStyleRunAnalysis: true
-    findBugsRunAnalysis: true
-    pmdRunAnalysis: true
-    publishJUnitResults: true
-    sonarQubeRunAnalysis: true
-    sqGradlePluginVersionChoice: 'specify'
-    sonarQubeGradlePluginVersion: '2.8'
-    tasks: 'assembleRelease'
+  - task: Gradle@2
+    inputs:
+      workingDirectory: ''
+      gradleWrapperFile: 'gradlew'
+      checkStyleRunAnalysis: true
+      findBugsRunAnalysis: true
+      pmdRunAnalysis: true
+      publishJUnitResults: true
+      sonarQubeRunAnalysis: true
+      sqGradlePluginVersionChoice: 'specify'
+      sonarQubeGradlePluginVersion: '2.8'
+      tasks: 'assembleRelease'
 
-- task: Gradle@2
+  - task: Gradle@2
   inputs:
     workingDirectory: ''
     gradleWrapperFile: 'gradlew'
