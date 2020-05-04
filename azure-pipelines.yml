@@ -50,18 +50,6 @@ steps:
       sonarQubeGradlePluginVersion: '2.8'
       tasks: 'assembleRelease'
 
-  - task: Gradle@2
-    inputs:
-      workingDirectory: ''
-      gradleWrapperFile: 'gradlew'
-      gradleOptions: '-Xmx3072m'
-      javaHomeOption: 'JDKVersion'
-      jdkVersionOption: '1.8'
-      jdkArchitectureOption: 'x64'
-      publishJUnitResults: true
-      tasks: 'assembleRelease test'
-      displayName: gradlew assembleRelease test
-
   - task: SonarCloudPublish@1
     inputs:
       pollingTimeoutSec: '300'
