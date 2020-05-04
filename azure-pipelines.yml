@@ -107,7 +107,17 @@ steps:
     projectKey: 'SampleWeatherForcast'
     projectName: 'SampleWeatherForcast'
     projectVersion: 'assembleRelease'
-    displayName: 'Prepare analysis on SonarQube'
     extraProperties: |
       sonar.organization=naveenbangar27
       sonar.branch.name=weatherforcast_barchart_implementation
+
+- task: SonarQubePrepare@4
+  inputs:
+   SonarQube: 'SampleWeatherAppSonar'
+   scannerMode: 'Other'
+
+- task: SonarQubePublish@4
+  inputs:
+    pollingTimeoutSec: '300'
+
+- task: SonarQubeAnalyze@4
