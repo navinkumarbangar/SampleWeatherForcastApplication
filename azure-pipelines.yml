@@ -52,8 +52,7 @@ steps:
  #         sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
 
 # Build Task- Android project build with Gradle .
-  - publish: bin
-    artifact: binaries
+
   - task: Gradle@2
     inputs:
       workingDirectory: ''
@@ -122,7 +121,7 @@ steps:
      key: 'gradle | "$(Agent.OS)"'
      restoreKeys: gradle
      path: $(GRADLE_USER_HOME)
-     displayName: Gradle build cache
+    displayName: Gradle build cache
 
   - script: |
      ./gradlew --build-cache build
