@@ -34,8 +34,9 @@ steps:
       # Additional properties that will be passed to the scanner, 
       # Put one key=value per line, example:
         sonar.exclusions=**/*.bin
-        sonar.projectName=sampleweatherforcastapplication+
+        sonar.projectName=sampleweatherforcastapplication
         sonar.organization=navinkumarbangar
+        sonar.login=53835f939dee4f83374fe6929be0baf37a539812
         sonar.projectKey=navinkumarbangar_sampleweatherforcastapplication
         sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
  
