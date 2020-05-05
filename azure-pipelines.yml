@@ -33,6 +33,7 @@ steps:
      extraProperties: |
       # Additional properties that will be passed to the scanner, 
       # Put one key=value per line, example:
+        sonar.login=9c3c39eaffccfdfb19482c695808b514d8e48a99
         sonar.exclusions=**/*.bin
         sonar.projectName=sampleweatherforcastapplication
         sonar.organization=navinkumarbangar
