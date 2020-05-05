@@ -29,7 +29,7 @@ steps:
     inputs:
       SonarCloud: 'SonarCloud'
       organization: 'sonarsource'
-      scannerMode: 'Other'
+      scannerMode: 'CLI'
       extraProperties: |
           sonar.exclusions=**/*.bin
           sonar.projectName=SampleWeatherForcast
@@ -44,7 +44,7 @@ steps:
       checkStyleRunAnalysis: true
       findBugsRunAnalysis: true
       pmdRunAnalysis: true
-      sqAnalysisEnabled: sonarCloudRunAnalysis
+      sqAnalysisEnabled: true
       publishJUnitResults: true
       tasks: 'assembleRelease'
 
