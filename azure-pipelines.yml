@@ -123,9 +123,9 @@ steps:
      displayName: Gradle build cache
 
   - script: |
-    ./gradlew --build-cache build
+     ./gradlew --build-cache build
       # stop the Gradle daemon to ensure no files are left open (impacting the save cache operation later)
-    ./gradlew --stop
+     ./gradlew --stop
 
   #Distribute the app on App center
   - task: AppCenterDistribute@3
