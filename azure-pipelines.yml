@@ -62,10 +62,6 @@ steps:
       displayName: gradlew assembleRelease test
 
 
-  - task: SonarCloudPublish@1
-    inputs:
-      pollingTimeoutSec: '300'
-
   # Build  Android project in Release mode with Gradle.
 #- task: Gradle@2
 #  inputs:
@@ -114,6 +110,12 @@ steps:
       releaseNotesInput: 'SampleWeatherApp First version.'
       destinationType: 'groups'
       destinationGroupIds: '6c2f931d-d656-4190-b475-0f9f7fcf9da2'
+
+  - task: SonarCloudAnalyze@1
+
+  - task: SonarCloudPublish@1
+    inputs:
+      pollingTimeoutSec: '300'
 
 #- task: SonarQubePrepare@4
 #  inputs:
