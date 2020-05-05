@@ -28,6 +28,7 @@ steps:
   - task: SonarCloudPrepare@1
     inputs:
       SonarCloud: 'SonarCloud'
+      organization: 'naveenbangar27'
       scannerMode: 'Other'
       extraProperties: |
           sonar.exclusions=**/*.bin
