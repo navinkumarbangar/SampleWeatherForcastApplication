@@ -29,7 +29,7 @@ steps:
     inputs:
       SonarCloud: 'SonarCloud'
       organization: 'sonarsource'
-      scannerMode: 'CLI'
+      scannerMode: 'Other'
       extraProperties: |
           sonar.exclusions=**/*.bin
           sonar.projectName=SampleWeatherForcast
