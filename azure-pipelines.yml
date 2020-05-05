@@ -120,7 +120,7 @@ steps:
     inputs:
      key: 'gradle | "$(Agent.OS)"'
      restoreKeys: gradle
-     path: $(GRADLE_USER_HOME)
+     path: $(gradleUserHome)
     displayName: Gradle build cache
 
   - script: |
