@@ -16,7 +16,7 @@ pool:
 
 variables:
 - group: android-build-variables
-  GRADLE_USER_HOME: $(Pipeline.Workspace)/.gradle
+   GRADLE_USER_HOME: $(Pipeline.Workspace)/.gradle
 steps:
 #- task: VersionAssemblies@2
 #  inputs:
