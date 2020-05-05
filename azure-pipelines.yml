@@ -60,9 +60,9 @@ steps:
       findBugsRunAnalysis: true
       pmdRunAnalysis: true
       publishJUnitResults: true
+      sqAnalysisEnabled: true
       sqGradlePluginVersionChoice: specify
       sqGradlePluginVersion: 2.6.1
-      sonarQubeRunAnalysis: true
       tasks: 'assembleRelease'
 
   - task: Gradle@2
