@@ -16,7 +16,7 @@ pool:
 
 variables:
 - group: android-build-variables
-   GRADLE_USER_HOME: $(Pipeline.Workspace)/.gradle
+
 steps:
 #- task: VersionAssemblies@2
 #  inputs:
@@ -119,7 +119,7 @@ steps:
     inputs:
      key: 'gradle | "$(Agent.OS)"'
      restoreKeys: gradle
-     path: $(GRADLE_USER_HOME)
+     path: $(gradleUserHome)
      displayName: Gradle build cache
 
   - script: |
