@@ -18,8 +18,6 @@ variables:
 - group: android-build-variables
 
 steps:
-  - publish:bin
-    artifact: binaries
 #- task: VersionAssemblies@2
 #  inputs:
 #    sourcePath: '$(Build.SourcesDirectory)/app/manifests'
@@ -53,7 +51,9 @@ steps:
  #         sonar.projectKey=sampleweatherforcast
  #         sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
 
-  # Build Task- Android project build with Gradle .
+# Build Task- Android project build with Gradle .
+  - publish: bin
+    artifact: binaries
   - task: Gradle@2
     inputs:
       workingDirectory: ''
