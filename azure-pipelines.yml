@@ -61,7 +61,6 @@ steps:
       displayName: gradlew assembleRelease test
 
   - task: SonarCloudAnalyze@1
-      displayName: 'Run Code Analysis'
 
   - task: SonarCloudPublish@1
     inputs:
