@@ -19,7 +19,7 @@ variables:
 
 steps:
   -publish: bin
-   artifact: binaries
+    artifact: binaries
 #- task: VersionAssemblies@2
 #  inputs:
 #    sourcePath: '$(Build.SourcesDirectory)/app/manifests'
