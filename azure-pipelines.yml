@@ -28,7 +28,6 @@ steps:
   - task: SonarCloudPrepare@1
     inputs:
       SonarCloud: 'SonarCloud'
-      organization: 'sonarsource'
       scannerMode: 'Other'
       extraProperties: |
           sonar.exclusions=**/*.bin
@@ -45,6 +44,7 @@ steps:
       findBugsRunAnalysis: true
       pmdRunAnalysis: true
       publishJUnitResults: true
+      sonarCloudRunAnalysis: true
       tasks: 'assembleRelease'
 
   - task: Gradle@2
