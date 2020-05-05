@@ -33,10 +33,11 @@ steps:
      extraProperties: |
       # Additional properties that will be passed to the scanner, 
       # Put one key=value per line, example:
-      sonar.exclusions=**/*.bin
-       sonar.projectName=sampleweatherforcastapplication
+        sonar.exclusions=**/*.bin
+        sonar.projectName=sampleweatherforcastapplication+
+        sonar.organization=navinkumarbangar
        sonar.projectKey=navinkumarbangar_sampleweatherforcastapplication
-      sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
+        sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
  
  # - task: SonarCloudPrepare@1
  #   inputs:
