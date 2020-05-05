@@ -44,7 +44,6 @@ steps:
       checkStyleRunAnalysis: true
       findBugsRunAnalysis: true
       pmdRunAnalysis: true
-      sqAnalysisEnabled: true
       publishJUnitResults: true
       tasks: 'assembleRelease'
 
