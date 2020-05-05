@@ -28,7 +28,7 @@ steps:
   - task: SonarCloudPrepare@1
     inputs:
       SonarCloud: 'SonarCloud'
-      organization: 'naveenbangar27'
+      organization: 'sonarsource'
       scannerMode: 'Other'
       extraProperties: |
           sonar.exclusions=**/*.bin
@@ -44,7 +44,7 @@ steps:
       checkStyleRunAnalysis: true
       findBugsRunAnalysis: true
       pmdRunAnalysis: true
-      sqAnalysisEnabled: true
+      sqAnalysisEnabled: sonarCloudRunAnalysis
       publishJUnitResults: true
       tasks: 'assembleRelease'
 
