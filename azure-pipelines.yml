@@ -16,7 +16,7 @@ pool:
 
 variables:
 - group: android-build-variables
-
+  GRADLE_USER_HOME: $(Pipeline.Workspace)/.gradle
 steps:
 #- task: VersionAssemblies@2
 #  inputs:
@@ -25,20 +25,20 @@ steps:
 #    versionCodeOffset: '1'
 #    versionName: 'SampleWeatherForcastApp'
 #    printFile: true
-  - task: SonarCloudPrepare@1
-    inputs:
-     SonarCloud: 'SonarCloud'
-     organization: 'navinbangar'
-     scannerMode: 'Other'
-     extraProperties: |
-      # Additional properties that will be passed to the scanner, 
-      # Put one key=value per line, example:
-        sonar.login=84f834bb3ee3de5c0bc3ae60280e05a93289a9b6
-        sonar.exclusions=**/*.bin
-        sonar.projectName=sampleweatherforcastapplicationkey
-        sonar.organization=navinbangar
-        sonar.projectKey=sampleweatherforcastapplicationkey
-        sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
+#  - task: SonarCloudPrepare@1
+#    inputs:
+#     SonarCloud: 'SonarCloud'
+#     organization: 'navinbangar'
+#     scannerMode: 'Other'
+#     extraProperties: |
+#      # Additional properties that will be passed to the scanner,
+#      # Put one key=value per line, example:
+#        sonar.login=84f834bb3ee3de5c0bc3ae60280e05a93289a9b6
+#        sonar.exclusions=**/*.bin
+#        sonar.projectName=sampleweatherforcastapplicationkey
+#        sonar.organization=navinbangar
+#        sonar.projectKey=sampleweatherforcastapplicationkey
+#        sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
  
  # - task: SonarCloudPrepare@1
  #   inputs:
@@ -60,9 +60,9 @@ steps:
       findBugsRunAnalysis: true
       pmdRunAnalysis: true
       publishJUnitResults: true
-      sqAnalysisEnabled: true
-      sqGradlePluginVersionChoice: specify
-      sqGradlePluginVersion: 2.6.1
+#      sqAnalysisEnabled: true
+#      sqGradlePluginVersionChoice: specify
+#      sqGradlePluginVersion: 2.6.1
       tasks: 'assembleRelease'
 
   - task: Gradle@2
@@ -115,6 +115,18 @@ steps:
       artifactName: 'apk-files'
       artifactType: 'container'
 
+- task: Cache@2
+  inputs:
+    key: 'gradle | "$(Agent.OS)"'
+    restoreKeys: gradle
+    path: $(GRADLE_USER_HOME)
+    displayName: Gradle build cache
+
+- script: |
+    ./gradlew --build-cache build
+      # stop the Gradle daemon to ensure no files are left open (impacting the save cache operation later)
+    ./gradlew --stop
+
   #Distribute the app on App center
   - task: AppCenterDistribute@3
     inputs:
@@ -127,11 +139,11 @@ steps:
       destinationType: 'groups'
       destinationGroupIds: '6c2f931d-d656-4190-b475-0f9f7fcf9da2'
 
-  - task: SonarCloudAnalyze@1
-
-  - task: SonarCloudPublish@1
-    inputs:
-      pollingTimeoutSec: '300'
+#  - task: SonarCloudAnalyze@1
+#
+#  - task: SonarCloudPublish@1
+#    inputs:
+#      pollingTimeoutSec: '300'
 
 #- task: SonarQubePrepare@4
 #  inputs:
