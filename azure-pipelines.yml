@@ -58,6 +58,7 @@ steps:
       findBugsRunAnalysis: true
       pmdRunAnalysis: true
       publishJUnitResults: true
+      sqAnalysisEnabled: true
       tasks: 'assembleRelease'
 
   - task: Gradle@2
