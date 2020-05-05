@@ -27,14 +27,27 @@ steps:
 #    printFile: true
   - task: SonarCloudPrepare@1
     inputs:
-      SonarCloud: 'SonarCloud'
-      organization: 'navinkumarbangar'
-      scannerMode: 'Other'
-      extraProperties: |
-          sonar.exclusions=**/*.bin
-          sonar.projectName=SampleWeatherForcast
-          sonar.projectKey=SampleWeatherForcast
-          sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
+     SonarCloud: 'SonarCloud'
+     organization: 'navinkumarbangar'
+     scannerMode: 'Other'
+     extraProperties: |
+      # Additional properties that will be passed to the scanner, 
+      # Put one key=value per line, example:
+      sonar.exclusions=**/*.bin
+      sonar.projectName=SampleWeatherForcast
+      sonar.projectKey=SampleWeatherForcast      
+      sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
+ 
+ # - task: SonarCloudPrepare@1
+ #   inputs:
+ #    SonarCloud: 'SonarCloud'
+ #     organization: 'navinkumarbangar'
+ #     scannerMode: 'Other'
+ #     extraProperties: |
+ #         sonar.exclusions=**/*.bin
+ #         sonar.projectName=SampleWeatherForcast
+ #         sonar.projectKey=SampleWeatherForcast
+ #         sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
 
   # Build Task- Android project build with Gradle.
   - task: Gradle@2
