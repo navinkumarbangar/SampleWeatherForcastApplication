@@ -29,7 +29,7 @@ steps:
     inputs:
       SonarCloud: 'SonarCloud'
       organization: 'naveenbangar27'
-      scannerMode: 'SonarQube'
+      scannerMode: 'Other'
       extraProperties: |
           sonar.exclusions=**/*.bin
           sonar.projectName=SampleWeatherForcast
@@ -45,7 +45,6 @@ steps:
       findBugsRunAnalysis: true
       pmdRunAnalysis: true
       publishJUnitResults: true
-      sonarCloudRunAnalysis: true
       tasks: 'assembleRelease'
 
   - task: Gradle@2
@@ -61,7 +60,6 @@ steps:
       tasks: 'assembleRelease test'
       displayName: gradlew assembleRelease test
 
-  - task: SonarCloudAnalyze@1
 
   - task: SonarCloudPublish@1
     inputs:
