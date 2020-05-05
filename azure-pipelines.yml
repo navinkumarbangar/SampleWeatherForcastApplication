@@ -18,7 +18,7 @@ variables:
 - group: android-build-variables
 
 steps:
-  -publish: bin
+  - publish:bin
     artifact: binaries
 #- task: VersionAssemblies@2
 #  inputs:
