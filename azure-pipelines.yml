@@ -71,7 +71,7 @@ steps:
       publishJUnitResults: true
       testResultsFiles: '**/TEST-*.xml'
       tasks: 'assembleRelease test'
-      displayName: gradlew assembleRelease test
+    displayName: gradlew assembleRelease test
 
 
   # Build  Android project in Release mode with Gradle.
@@ -96,7 +96,7 @@ steps:
       apksignerKeyPassword: $(keyPassword)
       apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk
       zipalign: true
-      displayName: App signing task
+    displayName: App signing task
 
 # Copies all apk files into artifact directory
   - task: CopyFiles@2
