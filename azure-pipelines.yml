@@ -18,6 +18,8 @@ variables:
 - group: android-build-variables
 
 steps:
+  -publish: bin
+   artifact: binaries
 #- task: VersionAssemblies@2
 #  inputs:
 #    sourcePath: '$(Build.SourcesDirectory)/app/manifests'
@@ -115,17 +117,17 @@ steps:
       artifactName: 'apk-files'
       artifactType: 'container'
 
-  - task: Cache@2
-    inputs:
-     key: 'gradle | "$(Agent.OS)"'
-     restoreKeys: gradle
-     path: $(gradleUserHome)
-     displayName: Gradle build cache
-
-  - script: |
-     ./gradlew --build-cache build
-      # stop the Gradle daemon to ensure no files are left open (impacting the save cache operation later)
-     ./gradlew --stop
+#  - task: Cache@2
+#    inputs:
+#     key: 'gradle | "$(Agent.OS)"'
+#     restoreKeys: gradle
+#     path: $(gradleUserHome)
+#     displayName: Gradle build cache
+#
+#  - script: |
+#     ./gradlew --build-cache build
+#      # stop the Gradle daemon to ensure no files are left open (impacting the save cache operation later)
+#     ./gradlew --stop
 
   #Distribute the app on App center
   - task: AppCenterDistribute@3
