@@ -34,8 +34,8 @@ steps:
       # Additional properties that will be passed to the scanner, 
       # Put one key=value per line, example:
       sonar.exclusions=**/*.bin
-      sonar.projectName=SampleWeatherForcastApplication
-      sonar.projectKey=SampleWeatherForcastApplication      
+      sonar.projectName=sampleweatherforcastapplication
+      sonar.projectKey=sampleweatherforcastapplication      
       sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
  
  # - task: SonarCloudPrepare@1
@@ -45,8 +45,8 @@ steps:
  #     scannerMode: 'Other'
  #     extraProperties: |
  #         sonar.exclusions=**/*.bin
- #         sonar.projectName=SampleWeatherForcast
- #         sonar.projectKey=SampleWeatherForcast
+ #         sonar.projectName=sampleweatherforcast
+ #         sonar.projectKey=sampleweatherforcast
  #         sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
 
   # Build Task- Android project build with Gradle.
