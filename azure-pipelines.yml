@@ -27,7 +27,7 @@ steps:
 #    printFile: true
   - task: SonarCloudPrepare@1
     inputs:
-     SonarCloud: 'SonarCloudNew'
+      SonarCloud: 'SonarCloud'
      organization: 'navinkumarbangar'
      scannerMode: 'Other'
      extraProperties: |
@@ -36,8 +36,7 @@ steps:
         sonar.exclusions=**/*.bin
         sonar.projectName=sampleweatherforcastapplication
         sonar.organization=navinkumarbangar
-        sonar.login=53835f939dee4f83374fe6929be0baf37a539812
-        sonar.projectKey=sampleweatherforcastapplication
+        sonar.projectKey=navinkumarbangar_sampleweatherforcastapplication
         sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
  
  # - task: SonarCloudPrepare@1
