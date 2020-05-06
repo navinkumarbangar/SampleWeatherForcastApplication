@@ -18,13 +18,7 @@ variables:
 - group: android-build-variables
 
 steps:
-#- task: VersionAssemblies@2
-#  inputs:
-#    sourcePath: '$(Build.SourcesDirectory)/app/manifests'
-#    versionCode: 1
-#    versionCodeOffset: '1'
-#    versionName: 'SampleWeatherForcastApp'
-#    printFile: true
+
   - task: SonarCloudPrepare@1
     inputs:
       SonarCloud: 'SonarCloud'
