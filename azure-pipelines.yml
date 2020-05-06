@@ -108,6 +108,17 @@ steps:
       destinationType: 'groups'
       destinationGroupIds: '6c2f931d-d656-4190-b475-0f9f7fcf9da2'
 
+  - task: AppCenterTest@1
+    inputs:
+      appFile: '$(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk'
+      artifactsDirectory: '$(Build.ArtifactStagingDirectory)/AppCenterTest'
+      frameworkOption: 'espresso'
+      credentialsOption: 'serviceEndpoint'
+      serverEndpoint: 'SampleWeatherForcastApplicationAppCenter'
+      appSlug: 'naveen.bangar27-gmail.com/SampleWeatherApp'
+      devices: 'MotoOneVision'
+      localeOption: 'en_US'
+      showDebugOutput: true
 #- task: SonarQubePrepare@4
 #  inputs:
 #    SonarQube: 'SampleWeatherAppSonar'
