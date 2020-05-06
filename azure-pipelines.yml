@@ -112,6 +112,7 @@ steps:
     inputs:
       appFile: '$(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk'
       artifactsDirectory: '$(Build.ArtifactStagingDirectory)/AppCenterTest'
+      espressoTestApkFile: '$(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk'
       frameworkOption: 'espresso'
       credentialsOption: 'serviceEndpoint'
       serverEndpoint: 'SampleWeatherForcastApplicationAppCenter'
