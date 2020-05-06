@@ -19,14 +19,7 @@ android {
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    productFlavors{
-        free{
-            applicationId "com.example.navinbangar.sampleweatherapplication.free"
-        }
-        paid{
-            applicationId "com.example.navinbangar.sampleweatherapplication.paid"
-        }
-    }
+
 
 
     buildTypes {
@@ -35,10 +28,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
-        debug{
-            applicationIdSuffix ".debug"
-            versionNameSuffix "-debug"
-        }
     }
 
     dexOptions {
