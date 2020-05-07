@@ -63,13 +63,13 @@ steps:
   - task: AndroidSigning@3
     inputs:
       apkFiles: '**/*.apk'
+      zipalign: true
       apksign: true
       apksignerKeystoreFile: SampleWeatherKeyStore.jks
       apksignerKeystorePassword: $(keystorePassword)
       apksignerKeystoreAlias: $(keyAlias)
       apksignerKeyPassword: $(keyPassword)
       apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk
-      zipalign: true
     displayName: App align and signing task
 
 # Copies all apk files into artifact directory
