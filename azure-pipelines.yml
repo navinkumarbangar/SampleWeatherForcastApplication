@@ -76,18 +76,6 @@ steps:
       tasks: 'assembleDebugAndroidTest'
     displayName: gradlew assembleDebug Android test
 
-  - task: AppCenterTest@1
-    inputs:
-      appFile: '$(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk'
-      artifactsDirectory: '$(Build.ArtifactStagingDirectory)/AppCenterTest'
-      espressoBuildDir: '$(Build.SourcesDirectory)/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk'
-      frameworkOption: 'espresso'
-      credentialsOption: 'serviceEndpoint'
-      serverEndpoint: 'SampleWeatherForcastApplicationAppCenter'
-      appSlug: 'naveen.bangar27-gmail.com/SampleWeatherApp'
-      devices: 'MotoOneVision'
-      localeOption: 'en_US'
-      showDebugOutput: true
 
   - task: SonarCloudPublish@1
     inputs:
@@ -129,6 +117,20 @@ steps:
       pathToPublish: '$(build.artifactStagingDirectory)/app/build/outputs/'
       artifactName: 'apk-files'
       artifactType: 'container'
+
+
+  - task: AppCenterTest@1
+    inputs:
+      appFile: '$(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk'
+      artifactsDirectory: '$(Build.ArtifactStagingDirectory)/AppCenterTest'
+      espressoBuildDir: '$(Build.SourcesDirectory)/app/build/outputs/apk/androidTest/debug'
+      frameworkOption: 'espresso'
+      credentialsOption: 'serviceEndpoint'
+      serverEndpoint: 'SampleWeatherForcastApplicationAppCenter'
+      appSlug: 'naveen.bangar27-gmail.com/SampleWeatherApp'
+      devices: 'MotoOneVision'
+      localeOption: 'en_US'
+      showDebugOutput: true
 
   #Distribute the app on App center
   - task: AppCenterDistribute@3
