@@ -62,7 +62,11 @@ steps:
   - task: AndroidSigning@3
     inputs:
       apkFiles: '**/*.apk'
-      zipalign: true    
+      zipalign: true  
+      apksignerKeystoreFile: SampleWeatherKeyStore.jks
+      apksignerKeystorePassword: $(keystorePassword)
+      apksignerKeystoreAlias: $(keyAlias)
+      apksignerKeyPassword: $(keyPassword)  
     displayName: App align task
 ## sign Android apk
   - task: AndroidSigning@3
