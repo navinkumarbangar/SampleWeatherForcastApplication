@@ -54,28 +54,6 @@ steps:
       tasks: 'assembleRelease test'
     displayName: gradlew assembleRelease test
 
-  - task: Gradle@2
-    inputs:
-      workingDirectory: ''
-      gradleWrapperFile: 'gradlew'
-      gradleOptions: '-Xmx3072m'
-      javaHomeOption: 'JDKVersion'
-      jdkVersionOption: '1.8'
-      jdkArchitectureOption: 'x64'
-      tasks: 'assembleDebug'
-    displayName: gradlew assembleRelease test
-
-  - task: Gradle@2
-    inputs:
-      workingDirectory: ''
-      gradleWrapperFile: 'gradlew'
-      gradleOptions: '-Xmx3072m'
-      javaHomeOption: 'JDKVersion'
-      jdkVersionOption: '1.8'
-      jdkArchitectureOption: 'x64'
-      tasks: 'assembleDebugAndroidTest'
-    displayName: gradlew assembleRelease Android test
-
   - task: SonarCloudPublish@1
     inputs:
       pollingTimeoutSec: '300'
@@ -101,7 +79,7 @@ steps:
       apksignerKeystoreAlias: $(keyAlias)
       apksignerKeyPassword: $(keyPassword)
       apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk
-      zipalign: false
+      zipalign: true
     displayName: App align and signing task
 
 # Copies all apk files into artifact directory
@@ -133,7 +111,7 @@ steps:
     inputs:
       appFile: '$(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk'
       artifactsDirectory: '$(Build.ArtifactStagingDirectory)/AppCenterTest'
-      espressoBuildDir: '$(Build.SourcesDirectory)/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk'
+      espressoBuildDir: Espresso
       frameworkOption: 'espresso'
       credentialsOption: 'serviceEndpoint'
       serverEndpoint: 'SampleWeatherForcastApplicationAppCenter'
