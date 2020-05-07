@@ -42,7 +42,7 @@ steps:
       findBugsRunAnalysis: true
       pmdRunAnalysis: true
       publishJUnitResults: true
-      tasks: 'assembleDebug,assembleDebugAndroidTest,assembleRelease,assembleRelease test'
+      tasks: 'assembleDebug assembleDebugAndroidTest assembleRelease test'
 
   - task: SonarCloudPublish@1
     inputs:
