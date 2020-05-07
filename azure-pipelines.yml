@@ -59,11 +59,15 @@ steps:
 #    publishJUnitResults: false
 #    tasks: 'assembleRelease'
 
+  - task: AndroidSigning@3
+    inputs:
+      apkFiles: '**/*.apk'
+      zipalign: true    
+    displayName: App align task
 ## sign Android apk
   - task: AndroidSigning@3
     inputs:
       apkFiles: '**/*.apk'
-      zipalign: true
       apksign: true
       apksignerKeystoreFile: SampleWeatherKeyStore.jks
       apksignerKeystorePassword: $(keystorePassword)
