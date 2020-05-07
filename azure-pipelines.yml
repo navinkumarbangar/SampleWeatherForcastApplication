@@ -120,7 +120,7 @@ steps:
 
   - task: AppCenterTest@1
     inputs:
-      appFile: '$(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk'
+      appFile: 'app/build/outputs/apk/debug/app-debug.apk'
       artifactsDirectory: '$(Build.ArtifactStagingDirectory)/AppCenterTest'
       espressoBuildDir: 'app/build/outputs/apk/androidTest/debug'
       frameworkOption: 'espresso'
