@@ -102,7 +102,7 @@ steps:
       apksignerKeystoreAlias: $(keyAlias)
       apksignerKeyPassword: $(keyPassword)
       apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk
-      zipalign: true
+      zipalign: false
     displayName: App align and signing task
 
 # Copies all apk files into artifact directory
@@ -123,7 +123,7 @@ steps:
     inputs:
       appFile: '$(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk'
       artifactsDirectory: '$(Build.ArtifactStagingDirectory)/AppCenterTest'
-      espressoBuildDir: '$(Build.SourcesDirectory)/app/build/outputs/apk/androidTest/debug'
+      espressoBuildDir: 'app/build/outputs/apk/androidTest/debug'
       frameworkOption: 'espresso'
       credentialsOption: 'serviceEndpoint'
       serverEndpoint: 'SampleWeatherForcastApplicationAppCenter'
