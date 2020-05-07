@@ -20,11 +20,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
-    signingConfigs {
-        config {
-            v2SigningEnabled false
-        }
-    }
+
 
     buildTypes {
         release {
@@ -33,7 +29,6 @@ android {
         }
         debug{
             debuggable false
-            signingConfig signingConfigs.config
         }
 
     }
