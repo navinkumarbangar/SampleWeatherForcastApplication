@@ -69,7 +69,7 @@ steps:
       apksignerKeystoreAlias: $(keyAlias)
       apksignerKeyPassword: $(keyPassword)
       apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk
-      zipalign: false
+      zipalign: true
     displayName: App align and signing task
 
 # Copies all apk files into artifact directory
