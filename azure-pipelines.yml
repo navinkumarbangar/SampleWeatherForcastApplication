@@ -62,7 +62,7 @@ steps:
       javaHomeOption: 'JDKVersion'
       jdkVersionOption: '1.8'
       jdkArchitectureOption: 'x64'
-      tasks: 'assembleRelease AndroidTest'
+      tasks: 'assembleDebugAndroidTest'
     displayName: gradlew assembleRelease test
 
   - task: SonarCloudPublish@1
