@@ -127,7 +127,7 @@ steps:
       credentialsOption: 'serviceEndpoint'
       serverEndpoint: 'SampleWeatherForcastApplicationAppCenter'
       appSlug: 'naveen.bangar27-gmail.com/SampleWeatherApp'
-      devices: 'naveen.bangar27-gmail.com//MotoOneVision'
+      devices: 'naveen.bangar27-gmail.com/MotoOneVision'
       localeOption: 'en_US'
       showDebugOutput: true
 
