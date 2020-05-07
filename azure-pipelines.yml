@@ -63,7 +63,7 @@ steps:
       jdkVersionOption: '1.8'
       jdkArchitectureOption: 'x64'
       tasks: 'assembleDebug'
-    displayName: gradlew assembleRelease test
+    displayName: gradlew assembleDebug
 
   - task: Gradle@2
     inputs:
@@ -74,7 +74,20 @@ steps:
       jdkVersionOption: '1.8'
       jdkArchitectureOption: 'x64'
       tasks: 'assembleDebugAndroidTest'
-    displayName: gradlew assembleRelease Android test
+    displayName: gradlew assembleDebug Android test
+
+  - task: AppCenterTest@1
+    inputs:
+      appFile: '$(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk'
+      artifactsDirectory: '$(Build.ArtifactStagingDirectory)/AppCenterTest'
+      espressoBuildDir: '$(Build.SourcesDirectory)/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk'
+      frameworkOption: 'espresso'
+      credentialsOption: 'serviceEndpoint'
+      serverEndpoint: 'SampleWeatherForcastApplicationAppCenter'
+      appSlug: 'naveen.bangar27-gmail.com/SampleWeatherApp'
+      devices: 'MotoOneVision'
+      localeOption: 'en_US'
+      showDebugOutput: true
 
   - task: SonarCloudPublish@1
     inputs:
@@ -101,7 +114,7 @@ steps:
       apksignerKeystoreAlias: $(keyAlias)
       apksignerKeyPassword: $(keyPassword)
       apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk
-      zipalign: false
+      zipalign: true
     displayName: App align and signing task
 
 # Copies all apk files into artifact directory
@@ -129,18 +142,7 @@ steps:
       destinationType: 'groups'
       destinationGroupIds: '6c2f931d-d656-4190-b475-0f9f7fcf9da2'
 
-  - task: AppCenterTest@1
-    inputs:
-      appFile: '$(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk'
-      artifactsDirectory: '$(Build.ArtifactStagingDirectory)/AppCenterTest'
-      espressoBuildDir: '$(Build.SourcesDirectory)/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk'
-      frameworkOption: 'espresso'
-      credentialsOption: 'serviceEndpoint'
-      serverEndpoint: 'SampleWeatherForcastApplicationAppCenter'
-      appSlug: 'naveen.bangar27-gmail.com/SampleWeatherApp'
-      devices: 'MotoOneVision'
-      localeOption: 'en_US'
-      showDebugOutput: true
+
 #- task: SonarQubePrepare@4
 #  inputs:
 #    SonarQube: 'SampleWeatherAppSonar'
