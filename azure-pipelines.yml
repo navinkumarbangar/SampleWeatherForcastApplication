@@ -1,3 +1,4 @@
+
 # Add steps that test, sign, and distribute the APK, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/android
 
@@ -36,7 +37,8 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        $revision= $(buildNumber).Substring($(buildNumber).LastIndexOf('.') + 1)
+        $versionCode=$(buildNumber)
+        $revision= $versionCode.Substring($versionCode.LastIndexOf('.') + 1)
         Write-Host "##vso[build.updatebuildnumber]1.0.$revision"
 
   # Build Task- Android project build with Gradle.
