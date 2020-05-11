@@ -17,8 +17,8 @@ pool:
 
 variables:
 - group: android-build-variables
-   version.MajorMinor:'5.5' # Manually adjust the version number as needed for semantic versioning. Revision is auto-incremented.
-   version.Revision:$[counter(variables[$(buildNumber))], 0)]
+   version.MajorMinor:'5.5'
+   version.Revision:$[counter(variables[$(buildNumber))],0)]
    versionNumber:'$(version.MajorMinor).$(version.Revision)'
 
 steps:
