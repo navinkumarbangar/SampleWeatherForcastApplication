@@ -43,8 +43,8 @@ steps:
       Write-Host "##vso[build.updatebuildnumber]$buildName"
       
 # Build Task- Android project build with Gradle.
-  - task: Gradle@2
-    inputs:
+ - task: Gradle@2
+   inputs:
       workingDirectory: ''
       gradleWrapperFile: 'gradlew'
       javaHomeOption: 'JDKVersion'
