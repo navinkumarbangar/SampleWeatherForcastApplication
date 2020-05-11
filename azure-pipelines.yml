@@ -35,7 +35,7 @@ steps:
 
 # Version Number Increment Task- Increase build number with each release.-5.5.${versionCode}
 -task:Bash@3
- condition: eq(variables['Build.SourceBranch'], 'refs/heads/weatherforcast_barchart_implementation')
+ condition: eq(variables['Build.SourceBranch'],'refs/heads/weatherforcast_barchart_implementation')
   - job: Build_Branch_Version_Number
     steps:
       - bash: |
