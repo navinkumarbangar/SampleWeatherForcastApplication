@@ -16,19 +16,28 @@ pool:
 
 variables:
 - group: android-build-variables
-
+  name: 5.5.$(Rev:r)
 steps:
 
-  - task: SonarCloudPrepare@1
+#  - task: SonarCloudPrepare@1
+#    inputs:
+#      SonarCloud: 'SonarCloud'
+#      organization: 'naveenbangar27'
+#      scannerMode: 'Other'
+#      extraProperties: |
+#          sonar.exclusions=**/*.bin
+#          sonar.projectName=SampleWeatherForcast
+#          sonar.projectKey=SampleWeatherForcast
+#          sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
+
+# Version Number Increment Task- Increase build number with each release.-5.5.${versionCode}
+  - task: PowerShell@2
+    condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'weatherforcast_barchart_implementation'))
     inputs:
-      SonarCloud: 'SonarCloud'
-      organization: 'naveenbangar27'
-      scannerMode: 'Other'
-      extraProperties: |
-          sonar.exclusions=**/*.bin
-          sonar.projectName=SampleWeatherForcast
-          sonar.projectKey=SampleWeatherForcast
-          sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
+      targetType: 'inline'
+      script: |
+        $revision= $buildNumber.Substring($buildNumber.LastIndexOf('.') + 1)
+        Write-Host "##vso[build.updatebuildnumber]1.0.$revision"
 
   # Build Task- Android project build with Gradle.
   - task: Gradle@2
@@ -44,9 +53,9 @@ steps:
       publishJUnitResults: true
       tasks: 'assembleDebug assembleDebugAndroidTest assembleRelease test'
 
-  - task: SonarCloudPublish@1
-    inputs:
-      pollingTimeoutSec: '300'
+#  - task: SonarCloudPublish@1
+#    inputs:
+#      pollingTimeoutSec: '300'
 
   # Build  Android project in Release mode with Gradle.
 #- task: Gradle@2
