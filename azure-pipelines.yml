@@ -17,7 +17,8 @@ pool:
 
 variables:
 - group: android-build-variables
-name: 5.5.$(Rev:r)
+brpatch: $[counter(variables[$(buildNumber)], 0)]
+versionCodePrefix: 5.5
 steps:
 
 #  - task: SonarCloudPrepare@
@@ -32,14 +33,15 @@ steps:
 #          sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
 
 # Version Number Increment Task- Increase build number with each release.-5.5.${versionCode}
-  - task: PowerShell@2
-    condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'weatherforcast_barchart_implementation'))
-    inputs:
-      targetType: 'inline'
-      script: |
-        $versionCode=$(buildNumber)
-        $revision= $versionCode.Substring($versionCode.LastIndexOf('.') + 1)
-        Write-Host "##vso[build.updatebuildnumber]1.0.$revision"
+-task:Bash@3
+ displayName:Build_Branch_Version_Number
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/weatherforcast_barchart_implementation')
+  - job: Build_Branch_Version_Number
+    steps:
+      - bash: |
+           echo "##vso[build.updatebuildnumber]$(versionCodePrefix).$(brpatch)"
+        condition: ne(variables['Build.Reason'], 'PullRequest')
+        name: SetBranchBuildName
 
   # Build Task- Android project build with Gradle.
   - task: Gradle@2
