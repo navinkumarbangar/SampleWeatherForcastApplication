@@ -16,10 +16,10 @@ pool:
 
 variables:
 - group: android-build-variables
-  name: 5.5.$(Rev:r)
+name: 5.5.$(Rev:r)
 steps:
 
-#  - task: SonarCloudPrepare@1
+#  - task: SonarCloudPrepare@
 #    inputs:
 #      SonarCloud: 'SonarCloud'
 #      organization: 'naveenbangar27'
