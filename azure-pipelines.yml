@@ -40,7 +40,7 @@ steps:
     steps:
       - bash: |
            echo "##vso[build.updatebuildnumber]$(versionCodePrefix).$(brpatch)"
-        condition: ne(variables['Build.Reason'], 'PullRequest')
+        condition: ne(variables['Build.Reason'],'PullRequest')
         name: SetBranchBuildName
 
   # Build Task- Android project build with Gradle.
