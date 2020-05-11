@@ -17,11 +17,19 @@ pool:
 
 variables:
 - group: android-build-variables
-  brpatch: $[counter(variables[$(buildNumber)], 0)]
-  versionCodePrefix: 5.5
+   version.MajorMinor:'5.5' # Manually adjust the version number as needed for semantic versioning. Revision is auto-incremented.
+   version.Revision: $[counter(variables[$())], 0)]
+   versionNumber:'$(version.MajorMinor).$(version.Revision)'
 
 steps:
-
+- task: PowerShell@2
+  displayName: Set the name of the build (i.e. the Build.BuildNumber)
+  inputs:
+    targetType: 'inline'
+    script: |
+      [string] $buildName = "$(versionNumber)"
+      Write-Host "Setting the name of the build to '$buildName'."
+      Write-Host "##vso[build.updatebuildnumber]$buildName"
 #  - task: SonarCloudPrepare@
 #    inputs:
 #      SonarCloud: 'SonarCloud'
@@ -32,18 +40,18 @@ steps:
 #          sonar.projectName=SampleWeatherForcast
 #          sonar.projectKey=SampleWeatherForcast
 #          sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
+ 
 
 # Version Number Increment Task- Increase build number with each release.-5.5.${versionCode}
--task:Bash@3
- condition: eq(variables['Build.SourceBranch'],'refs/heads/weatherforcast_barchart_implementation')
-  - job: Build_Branch_Version_Number
-    steps:
-      - bash: |
-           echo "##vso[build.updatebuildnumber]$(versionCodePrefix).$(brpatch)"
-        condition: ne(variables['Build.Reason'],'PullRequest')
-        name: SetBranchBuildName
+  - task: VersionAssemblies@2
+     inputs:
+      Path: '$(Build.SourcesDirectory)'
+      VersionNumber: '$(versionNumber)'
+      InjectVersion: true
+      FilenamePattern: 'AssemblyInfo.*'
+      OutputVersion: 'OutputedVersion'
 
-  # Build Task- Android project build with Gradle.
+# Build Task- Android project build with Gradle.
   - task: Gradle@2
     inputs:
       workingDirectory: ''
