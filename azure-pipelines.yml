@@ -22,14 +22,6 @@ variables:
    versionNumber:'$(version.MajorMinor).$(version.Revision)'
 
 steps:
-- task: PowerShell@2
-  displayName: Set the name of the build (i.e. the Build.BuildNumber)
-  inputs:
-    targetType: 'inline'
-    script: |
-      [string] $buildName = "$(versionNumber)"
-      Write-Host "Setting the name of the build to '$buildName'."
-      Write-Host "##vso[build.updatebuildnumber]$buildName"
 #  - task: SonarCloudPrepare@
 #    inputs:
 #      SonarCloud: 'SonarCloud'
@@ -41,16 +33,15 @@ steps:
 #          sonar.projectKey=SampleWeatherForcast
 #          sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
  
-
-# Version Number Increment Task- Increase build number with each release.-5.5.${versionCode}
-  - task: VersionAssemblies@2
-     inputs:
-      Path: '$(Build.SourcesDirectory)'
-      VersionNumber: '$(versionNumber)'
-      InjectVersion: true
-      FilenamePattern: 'AssemblyInfo.*'
-      OutputVersion: 'OutputedVersion'
-
+- task: PowerShell@2
+  displayName: Set the name of the build (i.e. the Build.BuildNumber)
+  inputs:
+    targetType: 'inline'
+    script: |
+      [string] $buildName = "$(versionNumber)"
+      Write-Host "Setting the name of the build to '$buildName'."
+      Write-Host "##vso[build.updatebuildnumber]$buildName"
+      
 # Build Task- Android project build with Gradle.
   - task: Gradle@2
     inputs:
