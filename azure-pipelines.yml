@@ -7,19 +7,21 @@ trigger:
 - weatherforcast_barchart_implementation
 
 #Unless you specify pr triggers pull request builds are automatically enabled for all branches
-#pr:
-#- master
-#- feature/*
+pr:
+- develop
+- weatherforcast_barchart_implementation
 
 pool:
   vmImage: 'macOS-10.14'
 
 variables:
 - group: android-build-variables
-  name: 5.5.$(Rev:r)
-steps:
+   version.MajorMinor:'5.5'
+   version.Revision:$[counter(variables[$(buildNumber))],0)]
+   versionNumber:'$(version.MajorMinor).$(version.Revision)'
 
-#  - task: SonarCloudPrepare@1
+steps:
+#  - task: SonarCloudPrepare@
 #    inputs:
 #      SonarCloud: 'SonarCloud'
 #      organization: 'naveenbangar27'
