@@ -109,6 +109,7 @@ steps:
 
   #Distribute the app on App center
   - task: AppCenterDistribute@3
+    condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'develop'))
     inputs:
       serverEndpoint: 'SampleWeatherForcastApplicationAppCenter'
       appSlug: 'naveen.bangar27-gmail.com/SampleWeatherApp'
