@@ -16,10 +16,9 @@ pool:
 
 variables:
 - group: android-build-variables
-   buildNumber:'55503'
+   buildNumber:'5.5.55503'
 
 steps:
-  - script: echo $(buildNumber) # display buildNumber
 #  - task: SonarCloudPrepare@1
 #    inputs:
 #      SonarCloud: 'SonarCloud'
@@ -32,7 +31,13 @@ steps:
 #          sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
 
 # Version Number Increment Task- Increase build number with each release.-5.5.${versionCode}
- 
+  - task: PowerShell@2
+    condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'weatherforcast_barchart_implementation'))
+    inputs:
+      targetType: 'inline'
+      script: |
+        $revision= $buildNumber.Substring($buildNumber.LastIndexOf('.') + 1)
+        Write-Host "##vso[build.updatebuildnumber]1.0.$revision"
 
   # Build Task- Android project build with Gradle.
   - task: Gradle@2
