@@ -16,10 +16,10 @@ pool:
 
 variables:
 - group: android-build-variables
-   buildNumber:'55503'
+- name: buildNumber
+  value: '55504'
 
 steps:
-  - script: echo $(buildNumber) # display buildNumber
 #  - task: SonarCloudPrepare@1
 #    inputs:
 #      SonarCloud: 'SonarCloud'
@@ -32,7 +32,12 @@ steps:
 #          sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
 
 # Version Number Increment Task- Increase build number with each release.-5.5.${versionCode}
- 
+  - task: PowerShell@2
+    condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'develop'))
+    inputs:
+      targetType: 'inline'
+      script: |
+        Write-Host "##vso[build.updatebuildnumber]5.5.$[counter($(buildNumber),1)]"
 
   # Build Task- Android project build with Gradle.
   - task: Gradle@2
@@ -89,21 +94,22 @@ steps:
       artifactName: 'apk-files'
       artifactType: 'container'
 
-  - task: AppCenterTest@1
-    inputs:
-      appFile: 'app/build/outputs/apk/debug/app-debug.apk'
-      artifactsDirectory: '$(Build.ArtifactStagingDirectory)/AppCenterTest'
-      espressoBuildDir: 'app/build/outputs/apk/androidTest/debug'
-      frameworkOption: 'espresso'
-      credentialsOption: 'serviceEndpoint'
-      serverEndpoint: 'SampleWeatherForcastApplicationAppCenter'
-      appSlug: 'naveen.bangar27-gmail.com/SampleWeatherApp'
-      devices: 'naveen.bangar27-gmail.com/MotoOneVision'
-      localeOption: 'en_US'
-      showDebugOutput: true
+#  - task: AppCenterTest@1
+#    inputs:
+#      appFile: 'app/build/outputs/apk/debug/app-debug.apk'
+#      artifactsDirectory: '$(Build.ArtifactStagingDirectory)/AppCenterTest'
+#      espressoBuildDir: 'app/build/outputs/apk/androidTest/debug'
+#      frameworkOption: 'espresso'
+#      credentialsOption: 'serviceEndpoint'
+#      serverEndpoint: 'SampleWeatherForcastApplicationAppCenter'
+#      appSlug: 'naveen.bangar27-gmail.com/SampleWeatherApp'
+#      devices: 'naveen.bangar27-gmail.com/MotoOneVision'
+#      localeOption: 'en_US'
+#      showDebugOutput: true
 
   #Distribute the app on App center
   - task: AppCenterDistribute@3
+    condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'develop'))
     inputs:
       serverEndpoint: 'SampleWeatherForcastApplicationAppCenter'
       appSlug: 'naveen.bangar27-gmail.com/SampleWeatherApp'
