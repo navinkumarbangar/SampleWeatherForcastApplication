@@ -16,7 +16,7 @@ pool:
 
 variables:
 - group: android-build-variables
-   buildNumber: 5.5.55503
+   buildNumber:'5.5.55503'
 
 steps:
 
