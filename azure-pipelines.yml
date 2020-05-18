@@ -2,42 +2,32 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/android
 
 trigger:
-- master
-- develop
-- weatherforcast_barchart_implementation
+  - master
+  - develop
+  - weatherforcast_barchart_implementation
 
 #Unless you specify pr triggers pull request builds are automatically enabled for all branches
 pr:
-- develop
-- weatherforcast_barchart_implementation
+  - develop
+  - weatherforcast_barchart_implementation
 
 pool:
   vmImage: 'macOS-10.14'
 
 variables:
-- group: android-build-variables
-- name: buildNumber
-  value: '55503'
+  - group: android-build-variables
 
 steps:
-#  - task: SonarCloudPrepare@1
-#    inputs:
-#      SonarCloud: 'SonarCloud'
-#      organization: 'naveenbangar27'
-#      scannerMode: 'Other'
-#      extraProperties: |
-#          sonar.exclusions=**/*.bin
-#          sonar.projectName=SampleWeatherForcast
-#          sonar.projectKey=SampleWeatherForcast
-#          sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
-
-# Version Number Increment Task- Increase build number with each release.-5.5.${versionCode}
-  - task: PowerShell@2
-    condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'develop'))
-    inputs:
-      targetType: 'inline'
-      script: |
-        Write-Host "##vso[build.updatebuildnumber]5.5.$[counter($(buildNumber),1)]"
+  #  - task: SonarCloudPrepare@1
+  #    inputs:
+  #      SonarCloud: 'SonarCloud'
+  #      organization: 'naveenbangar27'
+  #      scannerMode: 'Other'
+  #      extraProperties: |
+  #          sonar.exclusions=**/*.bin
+  #          sonar.projectName=SampleWeatherForcast
+  #          sonar.projectKey=SampleWeatherForcast
+  #          sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
 
   # Build Task- Android project build with Gradle.
   - task: Gradle@2
@@ -53,22 +43,22 @@ steps:
       publishJUnitResults: true
       tasks: 'assembleDebug assembleDebugAndroidTest assembleRelease test'
 
-#  - task: SonarCloudPublish@1
-#    inputs:
-#      pollingTimeoutSec: '300'
+  #  - task: SonarCloudPublish@1
+  #    inputs:
+  #      pollingTimeoutSec: '300'
 
   # Build  Android project in Release mode with Gradle.
-#- task: Gradle@2
-#  inputs:
-#    workingDirectory: ''
-#    gradleWrapperFile: 'gradlew'
-#    checkStyleRunAnalysis: true
-#    findBugsRunAnalysis: true
-#    pmdRunAnalysis: true
-#    publishJUnitResults: false
-#    tasks: 'assembleRelease'
+  #- task: Gradle@2
+  #  inputs:
+  #    workingDirectory: ''
+  #    gradleWrapperFile: 'gradlew'
+  #    checkStyleRunAnalysis: true
+  #    findBugsRunAnalysis: true
+  #    pmdRunAnalysis: true
+  #    publishJUnitResults: false
+  #    tasks: 'assembleRelease'
 
-## sign Android apk
+  ## sign Android apk
   - task: AndroidSigning@3
     inputs:
       apkFiles: '**/*.apk'
@@ -81,35 +71,34 @@ steps:
       apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/SampleWeatherApp.apk
     displayName: App align and signing task
 
-# Copies all apk files into artifact directory
+  # Copies all apk files into artifact directory
   - task: CopyFiles@2
     inputs:
       contents: '**/*.apk'
       targetFolder: '$(build.artifactStagingDirectory)'
 
-# Publish all apk files into artifact apk-file directory
+  # Publish all apk files into artifact apk-file directory
   - task: PublishBuildArtifacts@1
     inputs:
       pathToPublish: '$(build.artifactStagingDirectory)/app/build/outputs/'
       artifactName: 'apk-files'
       artifactType: 'container'
 
-#  - task: AppCenterTest@1
-#    inputs:
-#      appFile: 'app/build/outputs/apk/debug/app-debug.apk'
-#      artifactsDirectory: '$(Build.ArtifactStagingDirectory)/AppCenterTest'
-#      espressoBuildDir: 'app/build/outputs/apk/androidTest/debug'
-#      frameworkOption: 'espresso'
-#      credentialsOption: 'serviceEndpoint'
-#      serverEndpoint: 'SampleWeatherForcastApplicationAppCenter'
-#      appSlug: 'naveen.bangar27-gmail.com/SampleWeatherApp'
-#      devices: 'naveen.bangar27-gmail.com/MotoOneVision'
-#      localeOption: 'en_US'
-#      showDebugOutput: true
+  #  - task: AppCenterTest@1
+  #    inputs:
+  #      appFile: 'app/build/outputs/apk/debug/app-debug.apk'
+  #      artifactsDirectory: '$(Build.ArtifactStagingDirectory)/AppCenterTest'
+  #      espressoBuildDir: 'app/build/outputs/apk/androidTest/debug'
+  #      frameworkOption: 'espresso'
+  #      credentialsOption: 'serviceEndpoint'
+  #      serverEndpoint: 'SampleWeatherForcastApplicationAppCenter'
+  #      appSlug: 'naveen.bangar27-gmail.com/SampleWeatherApp'
+  #      devices: 'naveen.bangar27-gmail.com/MotoOneVision'
+  #      localeOption: 'en_US'
+  #      showDebugOutput: true
 
   #Distribute the app on App center
   - task: AppCenterDistribute@3
-    condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'develop'))
     inputs:
       serverEndpoint: 'SampleWeatherForcastApplicationAppCenter'
       appSlug: 'naveen.bangar27-gmail.com/SampleWeatherApp'
