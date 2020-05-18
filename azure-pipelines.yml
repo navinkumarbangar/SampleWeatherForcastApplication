@@ -16,10 +16,9 @@ pool:
 
 variables:
 - group: android-build-variables
-   buildNumber:${{5.5.55504}}
+   buildNumber:'55503'
 
 steps:
-
 #  - task: SonarCloudPrepare@1
 #    inputs:
 #      SonarCloud: 'SonarCloud'
