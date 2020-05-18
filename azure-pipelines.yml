@@ -17,7 +17,7 @@ pool:
 variables:
 - group: android-build-variables
 - name: buildNumber
-  value: '5.5.55504'
+  value: '55504'
 
 steps:
 #  - task: SonarCloudPrepare@1
@@ -37,8 +37,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        $revision= $(buildNumber).Substring($(buildNumber).LastIndexOf('.') + 1)
-        Write-Host "##vso[build.updatebuildnumber]5.5.$revision"
+        Write-Host "##vso[build.updatebuildnumber]5.5.$[counter('55503',1)]"
 
   # Build Task- Android project build with Gradle.
   - task: Gradle@2
