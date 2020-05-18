@@ -40,7 +40,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        $revision= $buildNumber.Substring($buildNumber.LastIndexOf('.') + 1)
+        $revision= $(buildNumber).Substring($(buildNumber).LastIndexOf('.') + 1)
         Write-Host "##vso[build.updatebuildnumber]5.5.$revision"
 
   # Build Task- Android project build with Gradle.
