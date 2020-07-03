@@ -80,7 +80,8 @@ steps:
       $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done' 
       $ANDROID_HOME/platform-tools/adb devices echo "Emulator started" 
       ./gradlew assembleDebugAndroidTest --stacktrace 
-      ./gradlew --stop 
+      ./gradlew --stop
+      continueOnError: true 
     displayName: 'Download and install emulator image' 
     condition: ne(variables.AVD_IMAGES_RESTORED, 'true')
 
