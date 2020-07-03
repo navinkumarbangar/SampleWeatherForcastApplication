@@ -81,7 +81,7 @@ steps:
       $ANDROID_HOME/platform-tools/adb devices echo "Emulator started" 
       ./gradlew assembleDebugAndroidTest --stacktrace 
       ./gradlew --stop
-      continueOnError: true 
+    continueOnError: true 
     displayName: 'Download and install emulator image' 
     condition: ne(variables.AVD_IMAGES_RESTORED, 'true')
 
