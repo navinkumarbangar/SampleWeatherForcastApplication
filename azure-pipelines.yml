@@ -94,7 +94,7 @@ steps:
       echo "Emulator started"
 
   - bash: |
-      ./gradlew connectedDebugAndroidTest --console=plain  --stacktrace
+      ./gradlew assembleDebugAndroidTest --console=plain  --stacktrace
       ./gradlew --stop
        displayName: 'Run Instrumented Tests'
        continueOnError: true
