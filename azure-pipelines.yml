@@ -128,6 +128,10 @@ steps:
       testRunTitle: 'Test results'
     condition: succeededOrFailed()
 
+  - task: PublishTestResultScreenshot@0
+    inputs:
+      organization: 'naveenbangar27'
+
   - task: UsePythonVersion@0
     displayName: 'Use Python 3.x'
     condition: succeededOrFailed()
