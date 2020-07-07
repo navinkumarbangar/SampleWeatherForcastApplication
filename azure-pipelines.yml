@@ -132,22 +132,6 @@ steps:
     inputs:
       organization: 'naveenbangar27'
 
-  - task: UsePythonVersion@0
-    displayName: 'Use Python 3.x'
-    condition: succeededOrFailed()
-
-  - bash: 'pip install requests'
-    displayName: 'Install Python dependencies'
-    condition: succeededOrFailed()
-
-  - task: PythonScript@0
-    displayName: 'Upload screenshots'
-    continueOnError: true
-    condition: succeededOrFailed()
-    inputs:
-      scriptPath: 'uiTestUploadScreenshot.sh'
-      arguments: '$(System.TeamProject) $(azure.api.pat) $(Build.BuildUri) naveenbangar27'
-
   #  - task: AppCenterTest@1
   #    inputs:
   #      appFile: 'app/build/outputs/apk/debug/app-debug.apk'
