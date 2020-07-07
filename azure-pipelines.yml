@@ -107,14 +107,6 @@ steps:
       testRunTitle: 'Test results'
     condition: succeededOrFailed()
 
-  - task: PublishTestResults@2
-    displayName: 'Publish Test Results'
-    inputs:
-      testResultsFiles: '**/outputs/androidTest-results/**/TEST*.xml'
-      failTaskOnFailedTests: true
-      testRunTitle: 'Test results'
-    condition: succeededOrFailed()
-
   # Copies all apk files into artifact directory
   - task: CopyFiles@2
     inputs:
