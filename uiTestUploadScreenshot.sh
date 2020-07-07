@@ -17,13 +17,13 @@ header={"content-type": "application/json; charset=utf-8", "Authorization": f"Ba
 api=f'{baseUrl}/test/runs?buildUri={buildUri}&api-version=5.1'
 response=requests.get(api, headers=header)
 print("GET", api, "-->", response.status_code)
-runId = json.loads(response.read())['value'][0]['id']
+runId = response.json()['value'][0]['id']
 
 # Get failed tests and upload screenshot
 api = f'{baseUrl}/test/runs/{runId}/results?api-version=5.1&outcomes=3'
 response = requests.get(api, headers=header)
 print("GET", api, "-->", response.status_code)
-failures = json.loads(response.read())['value']
+failures = response.json()['value']
 for failedTest in failures:
     resultId = failedTest['id']
     className = failedTest['automatedTestStorage']
