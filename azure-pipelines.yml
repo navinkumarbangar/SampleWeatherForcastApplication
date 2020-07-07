@@ -92,26 +92,23 @@ steps:
       $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done'
       $ANDROID_HOME/platform-tools/adb devices
       echo "Emulator started"
+      
   - bash: |
-      ./gradlew connectedDebugAndroidTest --console=plain  --stacktrace
+      ./gradlew connectedDebugAndroidTest  --console=plain  --stacktrace
       ./gradlew --stop
-       displayName: 'Run Instrumented Tests'
-       continueOnError: true
+    displayName: 'Run Instrumented Tests'
+    continueOnError: true
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
     inputs:
-      testResultsFiles: '**/outputs/androidTest-results/**/TEST*.xml'
+      testResultsFiles: 'TEST-*.xml'
       failTaskOnFailedTests: true
       testRunTitle: 'Test results'
     condition: succeededOrFailed()
 
-  - task: PublishTestResults@2
-    displayName: 'Publish Test Results'
+  - task: PublishTestResultScreenshot@0
     inputs:
-      testResultsFiles: '**/outputs/androidTest-results/**/TEST*.xml'
-      failTaskOnFailedTests: true
-      testRunTitle: 'Test results'
-    condition: succeededOrFailed()
+      organization: 'naveenbangar27'
 
   # Copies all apk files into artifact directory
   - task: CopyFiles@2
