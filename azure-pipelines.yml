@@ -18,6 +18,12 @@ variables:
 - group: android-build-variables
 
 steps:
+  - powershell: |
+      echo "Build head=====$env:Build_SourceBranchName"
+      if ($env:Build_SourceBranchName -eq 'master') {
+        return
+      }     
+    displayName: "Set Up variables value according to Branch selection"
   - task: Cache@2
     inputs:
       key: 'gradle | "$(Agent.OS)"'
