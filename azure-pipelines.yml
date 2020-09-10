@@ -19,7 +19,7 @@ variables:
 
 steps:
   - powershell: |
-      echo "Build head=====Build.SourceBranchName"
+      echo "Build head=====$(Build.SourceBranchName)"
       if ($env:Build_SourceBranchName -eq 'master') {
         return
       }     
