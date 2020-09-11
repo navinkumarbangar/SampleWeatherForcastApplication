@@ -39,7 +39,7 @@ steps:
 
   # Build Task- Android project build with Gradle.
   - powershell: |
-      echo "Build Branch Header=====$Env:Build_SourceBranchName"
+      echo "Build Branch Name=====$env:Build_SourceBranchName"
       if ($env:Build_SourceBranchName -eq 'master') {
         Write-Host ##vso[task.setvariable variable=apkSignKeyStoreFile;isOutput=true]SampleWeatherKeyStoreRelease
         Write-Host ##vso[task.setvariable variable=apkSignKeyAlias;isOutput=true]$(keyReleaseAlias)
