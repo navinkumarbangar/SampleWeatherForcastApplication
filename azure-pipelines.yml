@@ -38,21 +38,30 @@ steps:
   #          sonar.coverage.jacoco.xmlReportPaths=CCReport43F6D5EF/summary.xml
 
   # Build Task- Android project build with Gradle.
-  - powershell: |
-      if (${{eq(variables['Build.SourceBranchName'],'master')}}) {
-        echo "Build Branch Name=====${{ variables['Build.SourceBranchName'] }}"
-        Write-Host ##vso[task.setvariable variable=apkSignKeyStoreFile;isOutput=true]SampleWeatherKeyStoreRelease
-        Write-Host ##vso[task.setvariable variable=apkSignKeyAlias;isOutput=true]$(keyReleaseAlias)
-        Write-Host ##vso[task.setvariable variable=apkSignKeyPassword;isOutput=true]$(keyReleasePassword)
-        Write-Host ##vso[task.setvariable variable=apkSignKeyStorePassword;isOutput=true]$(keystoreReleasePassword)
-        return
-      } else {
-        Write-Host ##vso[task.setvariable variable=apkSignKeyStoreFile;isOutput=true]SampleWeatherKeyStore
-        Write-Host ##vso[task.setvariable variable=apkSignKeyAlias;isOutput=true]$(keyAlias)
-        Write-Host ##vso[task.setvariable variable=apkSignKeyPassword;isOutput=true]$(keyPassword)
-        Write-Host ##vso[task.setvariable variable=apkSignKeyStorePassword;isOutput=true]$(keystorePassword)       
-        }      
+  - task: PowerShell@2
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    displayName: "Set Up variables value for master branch"
+    inputs:
+         targetType: 'inline'
+         script: |
+              echo "Build Branch Name=====${{ variables['Build.SourceBranchName'] }}"
+              Write-Host ##vso[task.setvariable variable=apkSignKeyStoreFile;isOutput=true]SampleWeatherKeyStoreRelease
+              Write-Host ##vso[task.setvariable variable=apkSignKeyAlias;isOutput=true]$(keyReleaseAlias)
+              Write-Host ##vso[task.setvariable variable=apkSignKeyPassword;isOutput=true]$(keyReleasePassword)
+              Write-Host ##vso[task.setvariable variable=apkSignKeyStorePassword;isOutput=true]$(keystoreReleasePassword)
+  - task: PowerShell@2
+    condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
     displayName: "Set Up variables value according to Branch selection"
+    inputs:
+         targetType: 'inline'
+         script: |
+             echo "Build Branch Name=====${{ variables['Build.SourceBranchName'] }}"
+             Write-Host ##vso[task.setvariable variable=apkSignKeyStoreFile;isOutput=true]SampleWeatherKeyStore
+             Write-Host ##vso[task.setvariable variable=apkSignKeyAlias;isOutput=true]$(keyAlias)
+             Write-Host ##vso[task.setvariable variable=apkSignKeyPassword;isOutput=true]$(keyPassword)
+             Write-Host ##vso[task.setvariable variable=apkSignKeyStorePassword;isOutput=true]$(keystorePassword)
+          
+    
 
 #- task: VersionAssemblies@2
 #  inputs:
@@ -151,18 +160,6 @@ steps:
       pathToPublish: '$(build.artifactStagingDirectory)/app/build/outputs/'
       artifactName: 'apk-files'
       artifactType: 'container'
-
-  - task: Cache@2
-    inputs:
-     key: 'gradle | "$(Agent.OS)"'
-     restoreKeys: gradle
-     path: $(gradleUserHome)
-    displayName: Gradle build cache
-
-  - script: |
-     ./gradlew --build-cache build
-      # stop the Gradle daemon to ensure no files are left open (impacting the save cache operation later)
-     ./gradlew --stop
 
   #Distribute the app on App center
   - task: AppCenterDistribute@3
